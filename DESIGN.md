@@ -61,6 +61,8 @@ Satu aksen, satu family netral hangat, dua warna status. Semua pasangan teks/lat
 
 Di Hero, label yang sama dipakai tanpa background atau border. Bukan badge: bentuknya cuma teks, jadi tidak masuk kategori "AI capsule badge".
 
+**Favicon memakai mark yang disederhanakan** (atap, daun, balok, kaki) dalam bentuk SVG, karena detail mark utama berubah jadi gumpalan di 16px. Bentuknya juga bukan tile kotak: hanya garis emas di atas latar transparan, supaya tidak terbaca sebagai stiker di tab browser. Mark utama di navbar dan footer tetap yang detail.
+
 ## 6. Bentuk & radius
 
 | Nilai | Pemakaian |

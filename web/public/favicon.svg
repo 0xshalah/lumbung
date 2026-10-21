@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Lumbung</title>
+  <g fill="none" stroke="#E8B33A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 27 L32 9 L57 27"/>
+    <path d="M14 27 V44"/>
+    <path d="M50 27 V44"/>
+    <path d="M32 42 V28"/>
+    <path d="M32 33 C26 31 25 25 30 27 C32 28 32 30 32 33 Z"/>
+    <path d="M32 33 C38 31 39 25 34 27 C32 28 32 30 32 33 Z"/>
+    <path d="M7 44 H57"/>
+    <path d="M16 44 V54"/>
+    <path d="M32 44 V54"/>
+    <path d="M48 44 V54"/>
+  </g>
+</svg>
