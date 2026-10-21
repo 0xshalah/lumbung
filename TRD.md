@@ -245,7 +245,7 @@ lumbung-vault/
 
 | Library | Versi | Sumber | Catatan |
 |---|---|---|---|
-| `soroban-sdk` | `26.1.0` | crates.io | OZ 0.7.2 mensyaratkan `^26.1.0` |
+| `soroban-sdk` | `26.1.1` | crates.io | `26.1.0` **tidak bisa dipakai**: ia mengunci `soroban-env-host 26.1.3` yang menarik `ed25519-dalek 3.0.0` dengan API `rand_core` yang tidak kompatibel → gagal compile. `26.1.1` memakai `env-host 26.1.4` (dalek 2.x). |
 | `stellar-tokens` | `0.7.2` | crates.io | **Jangan** upgrade ke 0.8.x (butuh SDK lebih baru) |
 | `@stellar/stellar-sdk` | `17.2.1` | npm | |
 | `@creit.tech/stellar-wallets-kit` | `2.7.1` | npm | |
@@ -284,15 +284,16 @@ license = "MIT"
 publish = false
 
 [lib]
-crate-type = ["lib", "cdylib"]
+crate-type = ["cdylib"]
 doctest = false
 
 [dependencies]
-soroban-sdk = "=26.1.0"
+# 26.1.1 wajib: 26.1.0 menarik env-host 26.1.3 yang gagal compile.
+soroban-sdk = "=26.1.1"
 stellar-tokens = "=0.7.2"
 
 [dev-dependencies]
-soroban-sdk = { version = "=26.1.0", features = ["testutils"] }
+soroban-sdk = { version = "=26.1.1", features = ["testutils"] }
 
 [profile.release]
 opt-level = "z"
@@ -323,7 +324,9 @@ components = ["rustfmt", "clippy", "rust-src"]
 ```rust
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, Address, Env, String};
+// `MuxedAddress` WAJIB diimpor: macro `contracttrait` meng-expand default fn
+// `transfer` yang mereferensikan tipe ini di scope crate. Tanpa impor → E0425.
+use soroban_sdk::{contract, contractimpl, Address, Env, MuxedAddress, String};
 use stellar_tokens::{
     fungible::{Base, FungibleToken},
     vault::{FungibleVault, Vault},
@@ -369,10 +372,12 @@ impl FungibleVault for LumbungVault {}
 
 **Yang didapat gratis dari OZ (dan tidak boleh ditulis ulang):**
 
-- SEP-41: `allowance`, `approve`, `balance`, `transfer`, `transfer_from`, `burn`, `burn_from`, `decimals`, `name`, `symbol`, `total_supply`
-- SEP-56: `total_assets`, `query_asset`, `convert_to_shares`, `convert_to_assets`, `max_deposit/mint/withdraw/redeem`, `preview_*`, `deposit`, `mint`, `withdraw`, `redeem`
+- SEP-41: `allowance`, `approve`, `balance`, `transfer`, `transfer_from`, `decimals`, `name`, `symbol`, `total_supply` (9 fungsi)
+- SEP-56: `total_assets`, `query_asset`, `convert_to_shares`, `convert_to_assets`, `max_deposit/mint/withdraw/redeem`, `preview_*`, `deposit`, `mint`, `withdraw`, `redeem` (16 fungsi)
 - Event `deposit` & `withdraw`
 - Pembulatan & penanganan overflow (muldiv ala Script3)
+
+> **Koreksi hasil build (21 Okt):** `burn` dan `burn_from` **tidak** ikut. Keduanya ada di extension `FungibleBurnable`, bukan di `FungibleToken`, dan vault tidak mengimplementasikannya. Ini benar: share hanya dibakar internal saat `withdraw`/`redeem`. Spec final = **26 entri** (9 + 16 + `__constructor`).
 
 > ⚠️ **Jangan** memanggil `Vault::deposit_internal` / `Vault::withdraw_internal` dari wrapper sendiri. Keduanya **melewati auth** dan hanya boleh dipakai dari high-level function.
 
@@ -404,8 +409,10 @@ impl FungibleVault for LumbungVault {}
 | `approve` | `(from, spender, amount, expiration_ledger) -> bool` | `from` | |
 | `transfer` | `(from, to: MuxedAddress, amount) -> ()` | `from` | |
 | `transfer_from` | `(spender, from, to, amount) -> ()` | `spender` | butuh allowance |
-| `burn` | `(from, amount) -> ()` | `from` | |
-| `burn_from` | `(spender, from, amount) -> ()` | `spender` | |
+
+> `burn` / `burn_from` **tidak ada** di ABI. Vault membakar share secara internal saat
+> `withdraw`/`redeem`. Menambahkannya berarti mengimplementasikan `FungibleBurnable`,
+> yang membuka jalur pembakaran share milik orang lain — tidak diperlukan untuk P0.
 
 #### SEP-56 (vault)
 
@@ -548,8 +555,8 @@ ls -lh target/wasm32v1-none/release/lumbung_vault.wasm
 | T01 | Constructor: `query_asset`, `decimals`, `name`, `symbol` | sesuai argumen; decimals = 10 |
 | T02 | Deposit pertama 10 XLM | shares ≈ 10 × 10^10 |
 | T03 | Deposit kedua user lain, harga tetap | shares sesuai rasio |
-| T04 | Donation attack: transfer langsung ke vault sebelum deposit korban | korban tetap dapat shares > 0 (offset 3) |
-| T05 | `deposit(0)` | panic 403 |
+| T04 | Donation attack: transfer langsung ke vault sebelum deposit korban | korban tetap dapat shares > 0 (offset 3); dengan donation 10× deposit, kerugian korban < 1%; serangan baru "efektif" bila donation > ~1000× deposit — dan itu selalu merugikan penyerang |
+| T05 | `deposit(0)` | **no-op**: mengembalikan 0 share, state tidak berubah (OZ hanya menolak `amount < 0`). Bukan panic 403. |
 | T06 | `deposit` melebihi saldo | panic (transfer gagal) |
 | T07 | `withdraw` sebagian | shares terbakar sesuai preview |
 | T08 | `withdraw` semua via `max_withdraw` | saldo share = 0 |
@@ -1258,7 +1265,7 @@ Diterapkan 21 Okt 2026 → `PRD.md` v0.3, `TASKS.md` v0.3, `LANDING.md` v0.3.
 | `*_internal` melewati auth | doc-comment `deposit_internal` |
 | Urutan init: asset → offset → metadata | `examples/fungible-vault/src/contract.rs` v0.7.2 |
 | `Compose` tidak dipakai; memakai `contracttrait` | contoh resmi v0.7.2 |
-| `soroban-sdk = 26.1.0` untuk `stellar-tokens 0.7.2` | workspace `Cargo.toml` OZ |
+| `soroban-sdk = 26.1.1` untuk `stellar-tokens 0.7.2` | workspace `Cargo.toml` OZ + verifikasi build 21 Okt |
 | `overflow-checks = true` di profil rilis OZ | workspace `Cargo.toml` OZ |
 | Retensi event RPC ±7 hari | dokumentasi Stellar RPC |
 | XLM SAC testnet | `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC` |
