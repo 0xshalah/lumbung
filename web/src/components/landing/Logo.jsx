@@ -1,10 +1,13 @@
 export const LogoMark = ({ size = 28 }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
-    <rect width="32" height="32" rx="7" fill="#121317" stroke="#1F2126" />
-    <path d="M5 14 16 6l11 8" fill="none" stroke="#E8B33A" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round" />
-    <path d="M8 14v11h16V14" fill="none" stroke="#E8B33A" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M12 18h8M12 21.5h8" stroke="#E8B33A" strokeWidth="2" strokeLinecap="round" />
-  </svg>
+  <img
+    src={`${process.env.PUBLIC_URL}/logo-mark.png`}
+    width={size}
+    height={size}
+    alt=""
+    aria-hidden="true"
+    className="rounded-[7px] ring-1 ring-[#1F2126]"
+    style={{ objectFit: "cover" }}
+  />
 );
 
 export const Logo = () => (
