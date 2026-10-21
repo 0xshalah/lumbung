@@ -1,4 +1,4 @@
-# TRD — Lumbung Vault
+# TRD: Lumbung Vault
 
 **Technical Requirements & Implementation Document**
 
@@ -12,7 +12,7 @@
 | Target | Submission Aegis Vault Reward Challenge, **24 Okt 2026 23.59 WIB** |
 | Deadline internal | **24 Okt 2026 20.00 WIB** |
 
-> **Cara membaca dokumen ini.** Bagian 1–5 adalah keputusan dan batas. Bagian 6–9 adalah spesifikasi yang bisa langsung dieksekusi. Bagian 10–17 adalah jaminan kualitas, operasi, dan rencana harian. Semua angka versi, signature fungsi, dan perintah di dokumen ini **sudah diverifikasi** terhadap source/kode resmi per 21 Okt 2026 — bukan karangan. Yang belum terverifikasi ditandai eksplisit dengan `⚠️ VERIFY`.
+> **Cara membaca dokumen ini.** Bagian 1–5 adalah keputusan dan batas. Bagian 6–9 adalah spesifikasi yang bisa langsung dieksekusi. Bagian 10–17 adalah jaminan kualitas, operasi, dan rencana harian. Semua angka versi, signature fungsi, dan perintah di dokumen ini **sudah diverifikasi** terhadap source/kode resmi per 21 Okt 2026, bukan karangan. Yang belum terverifikasi ditandai eksplisit dengan `⚠️ VERIFY`.
 
 ---
 
@@ -22,9 +22,9 @@ Lumbung adalah **vault tokenized SEP-56** di Stellar Testnet: pengguna menyetor 
 
 Dokumen ini menetapkan bagaimana tiga komponen dibangun dan disatukan:
 
-1. **Kontrak** — Rust + Soroban, memakai OpenZeppelin `stellar-tokens` 0.7.2.
-2. **Web** — satu aplikasi React yang memuat landing (`/`) dan vault app (`/app`).
-3. **Artefak submission** — bukti checker Aegis + brief + post X.
+1. **Kontrak**: Rust + Soroban, memakai OpenZeppelin `stellar-tokens` 0.7.2.
+2. **Web**: satu aplikasi React yang memuat landing (`/`) dan vault app (`/app`).
+3. **Artefak submission**: bukti checker Aegis + brief + post X.
 
 **Prinsip yang tidak boleh dilanggar:**
 
@@ -245,10 +245,10 @@ Tidak di-commit (lokal saja, lihat AD-10):
 | Node.js | 26.8.2 | ✅ terpasang |
 | npm | 11.19.1 | ✅ terpasang |
 | Rust (stable) | ≥ 1.8x | ❌ **belum terpasang** |
-| Target `wasm32v1-none` | — | ❌ belum |
+| Target `wasm32v1-none` | n/a | ❌ belum |
 | Stellar CLI | 28.x | ❌ **belum terpasang** |
 | Chromium (QA/screenshot) | 154 | ✅ terpasang |
-| Freighter | — | ⚠️ VERIFY: pastikan terpasang & punya akun testnet |
+| Freighter | n/a | ⚠️ VERIFY: pastikan terpasang & punya akun testnet |
 
 > **R2 masih hidup.** Timebox pemasangan toolchain: **45 menit**. Bila lewat, pakai binary rilis resmi (lihat §13.1).
 
@@ -411,42 +411,42 @@ impl FungibleVault for LumbungVault {}
 
 | Fungsi | Signature | Auth | Catatan |
 |---|---|---|---|
-| `name` | `() -> String` | — | |
-| `symbol` | `() -> String` | — | |
-| `decimals` | `() -> u32` | — | **10** (override ke `Vault::decimals`) |
-| `total_supply` | `() -> i128` | — | unit share (10 desimal) |
-| `balance` | `(id: Address) -> i128` | — | |
-| `allowance` | `(from, spender) -> i128` | — | |
+| `name` | `() -> String` | n/a | |
+| `symbol` | `() -> String` | n/a | |
+| `decimals` | `() -> u32` | n/a | **10** (override ke `Vault::decimals`) |
+| `total_supply` | `() -> i128` | n/a | unit share (10 desimal) |
+| `balance` | `(id: Address) -> i128` | n/a | |
+| `allowance` | `(from, spender) -> i128` | n/a | |
 | `approve` | `(from, spender, amount, expiration_ledger) -> bool` | `from` | |
 | `transfer` | `(from, to: MuxedAddress, amount) -> ()` | `from` | |
 | `transfer_from` | `(spender, from, to, amount) -> ()` | `spender` | butuh allowance |
 
 > `burn` / `burn_from` **tidak ada** di ABI. Vault membakar share secara internal saat
 > `withdraw`/`redeem`. Menambahkannya berarti mengimplementasikan `FungibleBurnable`,
-> yang membuka jalur pembakaran share milik orang lain — tidak diperlukan untuk P0.
+> yang membuka jalur pembakaran share milik orang lain, tidak diperlukan untuk P0.
 
 #### SEP-56 (vault)
 
 | Fungsi | Signature | Auth | Pembulatan |
 |---|---|---|---|
-| `query_asset` | `() -> Address` | — | — |
-| `total_assets` | `() -> i128` | — | — |
-| `convert_to_shares` | `(assets: i128) -> i128` | — | floor |
-| `convert_to_assets` | `(shares: i128) -> i128` | — | floor |
-| `max_deposit` | `(receiver) -> i128` | — | — |
-| `preview_deposit` | `(assets) -> i128` | — | floor |
+| `query_asset` | `() -> Address` | n/a |, |
+| `total_assets` | `() -> i128` | n/a |, |
+| `convert_to_shares` | `(assets: i128) -> i128` | n/a | floor |
+| `convert_to_assets` | `(shares: i128) -> i128` | n/a | floor |
+| `max_deposit` | `(receiver) -> i128` | n/a |, |
+| `preview_deposit` | `(assets) -> i128` | n/a | floor |
 | `deposit` | `(assets, receiver, from, operator) -> i128` | `operator` | floor |
-| `max_mint` | `(receiver) -> i128` | — | — |
-| `preview_mint` | `(shares) -> i128` | — | ceil |
+| `max_mint` | `(receiver) -> i128` | n/a |, |
+| `preview_mint` | `(shares) -> i128` | n/a | ceil |
 | `mint` | `(shares, receiver, from, operator) -> i128` | `operator` | ceil |
-| `max_withdraw` | `(owner) -> i128` | — | — |
-| `preview_withdraw` | `(assets) -> i128` | — | ceil |
+| `max_withdraw` | `(owner) -> i128` | n/a |, |
+| `preview_withdraw` | `(assets) -> i128` | n/a | ceil |
 | `withdraw` | `(assets, receiver, owner, operator) -> i128` | `operator` | ceil |
-| `max_redeem` | `(owner) -> i128` | — | — |
-| `preview_redeem` | `(shares) -> i128` | — | floor |
+| `max_redeem` | `(owner) -> i128` | n/a |, |
+| `preview_redeem` | `(shares) -> i128` | n/a | floor |
 | `redeem` | `(shares, receiver, owner, operator) -> i128` | `operator` | floor |
 
-> **Urutan argumen `deposit` adalah `(assets, receiver, from, operator)`** — bukan `(assets, receiver, operator, from)`. Kesalahan urutan ini adalah bug integrasi paling umum; lihat §8.6.
+> **Urutan argumen `deposit` adalah `(assets, receiver, from, operator)`**, bukan `(assets, receiver, operator, from)`. Kesalahan urutan ini adalah bug integrasi paling umum; lihat §8.6.
 
 ### 7.5 Otorisasi & alur allowance (terverifikasi dari `vault/storage.rs`)
 
@@ -491,7 +491,7 @@ shares  = assets  * totalSupply' / totalAssets'   (ceil)    # withdraw
 assets  = shares  * totalAssets' / totalSupply'   (floor)   # redeem
 ```
 
-**Aturan:** pembulatan selalu menguntungkan vault (user tidak bisa menarik lebih dari kontribusinya). Ini bukan bug — ini perilaku yang disyaratkan.
+**Aturan:** pembulatan selalu menguntungkan vault (user tidak bisa menarik lebih dari kontribusinya). Ini bukan bug, ini perilaku yang disyaratkan.
 
 **Konsekuensi UI:** tampilkan hasil `preview_*` dari chain, jangan menghitung sendiri di browser. Browser hanya boleh menghitung untuk **tampilan sementara** dan harus sama dengan hasil simulasi; kalau berbeda, percayai chain.
 
@@ -526,8 +526,8 @@ assets  = shares  * totalAssets' / totalSupply'   (floor)   # redeem
 | Kode | Nama | Arti | Penanganan UI |
 |---|---|---|---|
 | 400 | `VaultAssetAddressNotSet` | asset belum di-set | Tidak mungkin di production (constructor) |
-| 401 | `VaultAssetAddressAlreadySet` | set_asset dua kali | — |
-| 402 | `VaultVirtualDecimalsOffsetAlreadySet` | offset dua kali | — |
+| 401 | `VaultAssetAddressAlreadySet` | set_asset dua kali | n/a |
+| 402 | `VaultVirtualDecimalsOffsetAlreadySet` | offset dua kali | n/a |
 | 403 | `VaultInvalidAssetsAmount` | assets ≤ 0 | "Amount must be greater than zero" |
 | 404 | `VaultInvalidSharesAmount` | shares ≤ 0 | idem |
 | 405–408 | `VaultExceededMax*` | melebihi `max_*` | "Amount exceeds your balance" |
@@ -566,7 +566,7 @@ ls -lh target/wasm32v1-none/release/lumbung_vault.wasm
 | T01 | Constructor: `query_asset`, `decimals`, `name`, `symbol` | sesuai argumen; decimals = 10 |
 | T02 | Deposit pertama 10 XLM | shares ≈ 10 × 10^10 |
 | T03 | Deposit kedua user lain, harga tetap | shares sesuai rasio |
-| T04 | Donation attack: transfer langsung ke vault sebelum deposit korban | korban tetap dapat shares > 0 (offset 3); dengan donation 10× deposit, kerugian korban < 1%; serangan baru "efektif" bila donation > ~1000× deposit — dan itu selalu merugikan penyerang |
+| T04 | Donation attack: transfer langsung ke vault sebelum deposit korban | korban tetap dapat shares > 0 (offset 3); dengan donation 10× deposit, kerugian korban < 1%; serangan baru "efektif" bila donation > ~1000× deposit, dan itu selalu merugikan penyerang |
 | T05 | `deposit(0)` | **no-op**: mengembalikan 0 share, state tidak berubah (OZ hanya menolak `amount < 0`). Bukan panic 403. |
 | T06 | `deposit` melebihi saldo | panic (transfer gagal) |
 | T07 | `withdraw` sebagian | shares terbakar sesuai preview |
@@ -636,7 +636,7 @@ stellar contract invoke --id $VAULT_ID --network testnet --source deployer -- \
 stellar events --id $VAULT_ID --network testnet --start-ledger <L>
 ```
 
-**Gerbang D1 — deploy dianggap selesai bila:**
+**Gerbang D1, deploy dianggap selesai bila:**
 1. Address `C...` 56 karakter tercatat.
 2. `decimals()` = 10, `query_asset()` = XLM SAC.
 3. Satu `deposit` sukses, terlihat di explorer, event `deposit` muncul.
@@ -836,7 +836,7 @@ const final = await pollTransaction(res.hash, { timeoutMs: 30_000, intervalMs: 1
 | Simulasi | contract `410` | "Amount too large" |
 | Wallet | `USER_REJECTED` | "Signature cancelled" |
 | Kirim | `SUBMIT_FAILED` | "Network rejected the transaction" |
-| Poll | `TIMEOUT` | "Still pending — check the explorer" + link |
+| Poll | `TIMEOUT` | "Still pending, check the explorer" + link |
 | Poll | `FAILED` | "Transaction failed on-chain" + link |
 
 **Aturan:** setiap state `PENDING`/`FAILED`/`TIMEOUT` menampilkan tx hash + link explorer. Tanpa itu, user tidak bisa memverifikasi sendiri.
@@ -871,13 +871,13 @@ export const sharePrice = (rawAssets, rawShares, assetDec, shareDec) => {
 
 | Kondisi | Stats panel | Panel aksi | Tombol utama |
 |---|---|---|---|
-| Contract ID kosong/invalid | `—` + "Not deployed" (abu) | disabled | "Not available" |
+| Contract ID kosong/invalid | `n/a` + "Not deployed" (abu) | disabled | "Not available" |
 | Loading | `…` (skeleton) | disabled | spinner |
-| RPC error | `—` + "Unavailable" + Retry | disabled | "Retry" |
+| RPC error | `n/a` + "Unavailable" + Retry | disabled | "Retry" |
 | Wallet belum connect | data publik tampil | disabled | "Connect wallet" |
 | Wallet connect, network salah | data tampil | disabled | "Switch to Testnet" |
 | Siap | data tampil | aktif | "Deposit" / "Withdraw" |
-| Amount > saldo | — | aktif, pesan inline | disabled |
+| Amount > saldo | n/a | aktif, pesan inline | disabled |
 | Tx pending | data beku (tidak auto-refresh) | disabled | "Confirming…" |
 | Tx sukses | refresh | aktif | "Done" + hash |
 | Tx gagal | refresh | aktif | "Try again" |
@@ -892,7 +892,7 @@ export const sharePrice = (rawAssets, rawShares, assetDec, shareDec) => {
 | L2 | Build gagal di clone bersih | Commit `package-lock.json`; tambah `ajv@8.20.0` eksak | `rm -rf node_modules && npm ci && npm run build` sukses |
 | L3 | `/app` 404 di hosting statis | Tambah `vercel.json` rewrite ke `/index.html` | `/app`, `/docs`, `/status`, `/changelog` HTTP 200 |
 | L4 | Angka terpotong (`125,430.5…`) | `tabular-nums`, kolom penuh, atau 2 baris; hapus `truncate` pada nilai | Tidak ada ellipsis pada angka |
-| L5 | Placeholder `[CONTRACT_ID]`, `[contact-email]` | Render "—" / sembunyikan baris | Tidak ada string `[` `]` di UI |
+| L5 | Placeholder `[CONTRACT_ID]`, `[contact-email]` | Render "n/a" / sembunyikan baris | Tidak ada string `[` `]` di UI |
 | L6 | Sisa tool AI builder | Hapus `.env` preview, `@emergentbase/*`, `plugins/health-check`; sederhanakan `craco.config.js`; tulis README | `npm ci` tidak menghubungi domain pihak ketiga |
 
 **Indikator status jujur:**
@@ -908,7 +908,7 @@ export const sharePrice = (rawAssets, rawShares, assetDec, shareDec) => {
 
 1. Tidak ada angka on-chain yang berasal dari `localStorage`, mock, atau hardcode.
 2. Setiap angka punya sumber yang bisa disebut: `total_assets()`, `total_supply()`, `decimals()`, `balance()`.
-3. Bila data tidak tersedia → tampilkan `—`, bukan `0`.
+3. Bila data tidak tersedia → tampilkan `n/a`, bukan `0`.
 4. Tidak ada klaim "audited", "yield", "APY", "secure", "guaranteed".
 5. Testnet disclosure muncul di nav, hero, dan footer.
 6. Tanggal di roadmap hanya yang benar-benar direncanakan; lebih baik "Next" tanpa tanggal.
@@ -1003,7 +1003,7 @@ dan menerima share (LMB) yang mewakili porsi kepemilikan pool.
 ## Cara kerja
 1. Setor XLM → dapat share sesuai harga saat itu
 2. Share dapat ditransfer seperti token biasa
-3. Tarik kapan saja — tidak ada lockup
+3. Tarik kapan saja, tidak ada lockup
 
 ## Fungsi utama
 - deposit / mint   : setor aset, dapat share
@@ -1035,7 +1035,7 @@ Lumbung is live on Stellar Testnet.
 A SEP-56 tokenized vault: deposit XLM, hold a share of the pool,
 withdraw anytime. No admin keys, no fees, no lockup.
 
-Checked with @AegisVault's vault checker — [N]/11 checks returning results.
+Checked with @AegisVault's vault checker, [N]/11 checks returning results.
 
 App: <url>/app
 Contract: C...
@@ -1081,7 +1081,7 @@ Contract: C...
 
 | # | Skenario | Ekspektasi |
 |---|---|---|
-| Q01 | Buka `/` tanpa wallet | Stats tampil atau `—`; tidak ada error console |
+| Q01 | Buka `/` tanpa wallet | Stats tampil atau `n/a`; tidak ada error console |
 | Q02 | Buka `/app` tanpa wallet | Tombol Connect; data publik tampil |
 | Q03 | Connect Freighter testnet | Address tampil, network hijau |
 | Q04 | Connect di network PUBLIC | Ditolak dengan pesan jelas |
@@ -1116,7 +1116,7 @@ Lihat §7.12 (T01–T20). Semua harus hijau sebelum deploy.
 | S4 | Overflow-checks aktif | `Cargo.toml` |
 | S5 | Donation attack dimitigasi | `decimals_offset = 3` + test T04 |
 | S6 | Tidak ada secret di repo | `git grep -i secret`; `.env` di `.gitignore` |
-| S7 | Signing hanya di wallet | review `lib/*` — tidak ada `Keypair.fromSecret` |
+| S7 | Signing hanya di wallet | review `lib/*`, tidak ada `Keypair.fromSecret` |
 | S8 | Semua tx disimulasikan dulu | `prepareTransaction` wajib |
 | S9 | Validasi address `G...`/`C...` 56 char | unit test `config.js` |
 | S10 | Dependency terkunci | `Cargo.lock` + `package-lock.json` |
@@ -1190,13 +1190,13 @@ Hari ini **Rabu 21 Okt, 14.30 WIB**. Sisa ke deadline internal: **±78 jam**.
 |---|---|---|---|---|---|
 | R1 | Scope creep full stack | Tinggi | Tinggi | Gate harian; P1 dilarang | Mulai kerjakan hal di luar §3.1 |
 | R2 | Toolchain > 3 jam | Sedang | Tinggi | Timebox 45 mnt + binary | `cargo install` > 20 mnt |
-| R3 | API SEP-56 berubah | Rendah | Sedang | Versi dikunci | — |
+| R3 | API SEP-56 berubah | Rendah | Sedang | Versi dikunci | n/a |
 | R4 | Checker tidak bisa akses vault | Rendah | **Kritis** | Tanpa whitelist; uji akun kedua | Checker error auth |
 | R5 | Bug desimal 7 vs 10 | **Tinggi** | Tinggi | §8.7 + test formatter | Angka share terlihat 1000× |
 | R6 | RPC/faucet tidak stabil | Sedang | Sedang | Retry + endpoint alternatif | `getHealth` gagal |
 | R7 | Bug integrasi urutan argumen `deposit` | Sedang | Tinggi | §7.4 + test T02 | Simulasi gagal |
 | R8 | Build CRA gagal (ajv/polyfill) | Sedang | Tinggi | L2 (§8.9) + lockfile | `npm ci` error |
-| R9 | Artefak tidak lengkap di menit akhir | Sedang | Tinggi | Bundel D3, bukan D4 | — |
+| R9 | Artefak tidak lengkap di menit akhir | Sedang | Tinggi | Bundel D3, bukan D4 | n/a |
 | R10 | Vault kosong saat checker | Sedang | Sedang | Deposit dummy D3 | `total_assets == 0` |
 | R11 | Post X dari akun yang tidak terlihat resmi | Sedang | Sedang | Buat akun D0, posting 1–2 update lebih dulu | Akun baru tanpa histori |
 | R12 | `/app` 404 di link post | **Tinggi** bila L3 tidak dikerjakan | Tinggi | `vercel.json` + uji hard refresh | Buka `/app` di production |
@@ -1215,7 +1215,7 @@ Hari ini **Rabu 21 Okt, 14.30 WIB**. Sisa ke deadline internal: **±78 jam**.
 - [ ] Tidak ada fungsi admin (review)
 
 ### 16.2 Web
-- [ ] `/` menampilkan data on-chain nyata atau `—` (tidak pernah mock)
+- [ ] `/` menampilkan data on-chain nyata atau `n/a` (tidak pernah mock)
 - [ ] `/app` connect, deposit, withdraw berfungsi
 - [ ] Semua error state punya pesan + aksi
 - [ ] Formatter lulus test §8.7
@@ -1241,7 +1241,7 @@ Diterapkan 21 Okt 2026 → `PRD.md` v0.3, `TASKS.md` v0.3, `LANDING.md` v0.3.
 | A2 | PRD | §8.1 D2 | `Compose<(Vault, TotalSupply)>` → `impl FungibleToken (ContractType = Vault)` + `impl FungibleVault` | ✅ |
 | A3 | PRD | §8.1 D6 | Tanpa backend **service**; baca langsung dari RPC | ✅ |
 | A4 | PRD | §11 timeline | Di-rebaseline sesuai §14 dokumen ini | ✅ |
-| A5 | PRD | §5.1 **FR-03** | Acceptance donation-attack (test T04) ditambahkan ke alur deposit — bukan FR-02, karena sifatnya ada saat deposit | ✅ |
+| A5 | PRD | §5.1 **FR-03** | Acceptance donation-attack (test T04) ditambahkan ke alur deposit, bukan FR-02, karena sifatnya ada saat deposit | ✅ |
 | A6 | PRD | Q1–Q7 | Semua ditutup dengan keputusan | ✅ |
 | A7 | TASKS | D0/D1 | Scaffold sesuai §7, merge landing, deploy dengan constructor args | ✅ |
 | A8 | TASKS | D2/D3 | React SPA, desimal dinamis, task landing jadi audit + L1–L6 | ✅ |
@@ -1283,4 +1283,4 @@ Diterapkan 21 Okt 2026 → `PRD.md` v0.3, `TASKS.md` v0.3, `LANDING.md` v0.3.
 
 ---
 
-*Dokumen ini adalah sumber kebenaran teknis. Bila implementasi menyimpang, perbarui dokumen ini bersamaan dengan kode — bukan setelahnya.*
+*Dokumen ini adalah sumber kebenaran teknis. Bila implementasi menyimpang, perbarui dokumen ini bersamaan dengan kode, bukan setelahnya.*

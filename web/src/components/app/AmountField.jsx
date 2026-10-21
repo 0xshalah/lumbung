@@ -11,7 +11,7 @@ export const AmountField = ({ c, id, value, onChange, unit, decimals = 7, availa
         </span>
       )}
     </div>
-    <div className={`flex items-center rounded-[8px] border bg-[#0A0B0D] focus-within:border-[#E8B33A] transition-colors duration-150 ${invalid ? "border-[#F87171]" : "border-[#1F2126]"}`}>
+    <div className={`flex items-center rounded-[8px] border bg-[#0A0B0D] focus-within:border-[#E8B33A] transition-colors duration-150 ${invalid ? "border-[#F87171]" : "border-[#626872]"}`}>
       <input
         id={id}
         data-testid={id}

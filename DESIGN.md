@@ -33,7 +33,8 @@ Satu aksen, satu family netral hangat, dua warna status. Semua pasangan teks/lat
 |---|---|---|
 | Base | `#0A0B0D` | Hampir hitam dengan sedikit biru. Film-like, dan membuat emas terasa hangat, bukan seperti kuning menyala. |
 | Surface | `#121317` | Satu tingkat lebih terang dari base, supaya panel terbaca tanpa perlu border tebal. |
-| Hairline | `#1F2126` | Garis pemisah dan border. Senada dengan base, jadi tidak berebut perhatian. |
+| Hairline | `#1F2126` | Garis pemisah dan border. Senada dengan base, jadi tidak berebut perhatian. Dipakai untuk garis dekoratif, bukan untuk batas kontrol yang harus dikenali. |
+| Batas kontrol | `#626872` | Border field input di dashboard: 3,5:1 terhadap latar, memenuhi WCAG 1.4.11 (3:1 untuk batas komponen yang harus dikenali). Garis rambut `#1F2126` tidak cukup jelas untuk area input. |
 | Teks utama | `#E7E9EE` | Putih tulang, bukan `#FFFFFF`: mengurangi silau di layar gelap dan butuh kontras 15,9:1. |
 | Teks sekunder | `#A9AEB7` | Untuk paragraf. Masih 8,3:1 di atas surface. |
 | Teks tersier / label | `#8A9099` | Untuk label dan angka pelengkap. 5,8:1, tetap terbaca. |
@@ -83,6 +84,7 @@ Pill (radius penuh) **hanya** di tempat bentuknya membawa makna: bar progres di 
 | Tidak dipakai | Alasan |
 |---|---|
 | Background grid / blueprint | Identitas datang dari grain film dan satu glow hangat. Grid garis bikin halaman terbaca sebagai template developer, bukan produk. |
+| Blur di permukaan | Blur hanya di sticky bar (supaya konten yang lewat di belakang tetap terbaca) dan overlay modal (pola dialog). Tidak ada panel kaca. |
 | Capsule badge dengan titik | Status ditulis dengan kata ("TESTNET"), bukan pil berwarna dengan titik berdenyut. |
 | Panah di setiap tombol | Ada satu affordance arah: CTA utama di Hero. Panah ShareMath itu penghubung a→b, jadi informatif. |
 | Light mode | Produk ini satu tema gelap. Tanpa toggle, berarti tidak ada tema yang belum pernah diuji. Set token shadcn dipaksa gelap lewat `class="dark"`. |

@@ -4,7 +4,7 @@ Vault tokenized **SEP-56** di Stellar Testnet. Menyimpan XLM, menerbitkan share
 (`LMB`) yang nilainya mengikuti total aset di vault.
 
 > **Testnet only.** Tidak ada dana nyata. Kontrak tidak memiliki admin, upgrade,
-> atau pause — tidak ada pihak yang bisa membekukan atau mengganti aset.
+> atau pause, tidak ada pihak yang bisa membekukan atau mengganti aset.
 
 ## Kontrak
 
@@ -24,7 +24,7 @@ Detail deployment (tx hash, state awal, akun demo) ada di
 
 Share memakai 10 desimal, bukan 7. Offset ini melindungi depositor pertama dari
 serangan donation/inflation: penyerang harus menyumbang sekitar 1000× deposit
-korban agar share korban membulat ke nol — dan pada titik itu serangan selalu
+korban agar share korban membulat ke nol, dan pada titik itu serangan selalu
 merugikan penyerang. Dibuktikan oleh test `t04_donation_attack_unprofitable`.
 
 ## Struktur

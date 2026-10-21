@@ -19,7 +19,7 @@ export default function Changelog() {
                 <span className="rounded-full border border-[#1F2126] px-2 py-0.5 font-mono text-[11px] uppercase text-[#E8B33A]">{e.tag}</span>
               </div>
               <ul className="mt-4 space-y-2">
-                {e.items.map((t) => <li key={t} className="flex gap-3 text-[15px] text-[#A9AEB7]"><span className="text-[#5B606A]">—</span>{t}</li>)}
+                {e.items.map((t) => <li key={t} className="flex gap-3 text-[15px] text-[#A9AEB7]"><span className="text-[#5B606A]">·</span>{t}</li>)}
               </ul>
             </li>
           </Reveal>

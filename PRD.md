@@ -1,4 +1,4 @@
-# PRD — Lumbung Vault
+# PRD: Lumbung Vault
 
 > **Status:** Draft v0.3 (diamendemen oleh [`TRD.md`](./TRD.md) v1.0)
 > **Pemilik:** Shalahuddin Al-Ayyubi
@@ -12,11 +12,11 @@
 > terbuka Q1–Q7 **ditutup**. Detail teknis ada di `TRD.md`; PRD tetap dokumen produk.
 >
 > **Catatan v0.2:** landing page ditambahkan sebagai **P0.5/P1** (bukan P0) melalui
-> `LANDING.md` (dokumen internal, tidak dipublikasikan), yang mengamendemen dokumen ini (LP-01..LP-14, LP-NFR-01..LP-NFR-05, G6).
+> amendemen pada `LANDING.md` (dokumen internal, tidak dipublikasikan): LP-01..LP-14, LP-NFR-01..LP-NFR-05, G6.
 
 > **Nama "Lumbung" adalah working title** dan bisa diganti tanpa memengaruhi isi PRD.
 > Alasan pemilihan: lumbung = tempat menyimpan hasil bersama, tempat orang menitipkan
-> gabah lalu menerima bagian sesuai kontribusi — persis mental model tokenized vault.
+> gabah lalu menerima bagian sesuai kontribusi, persis mental model tokenized vault.
 
 ---
 
@@ -94,12 +94,12 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 
 ### 3.1 Tujuan (Goals)
 
-- **G1** — Vault SEP-56 berjalan di Stellar Testnet dengan contract address `C...` (56 karakter).
-- **G2** — Pengguna dapat **deposit** dan **withdraw/redeem** lewat UI, dengan feedback status transaksi yang jelas.
-- **G3** — Semua angka ditampilkan benar dalam desimal 7 digit; tidak ada bug pembulatan yang merugikan pengguna.
-- **G4** — Submission Aegis lengkap dan dapat diverifikasi (record, screenshot, JSON+MD, brief, link X).
-- **G5** — Repo publik yang bisa dibaca orang lain: README, arsitektur, dan cara menjalankan.
-- **G6** — Landing page publik yang jujur: menjelaskan produk dalam < 5 detik, menampilkan
+- **G1**: Vault SEP-56 berjalan di Stellar Testnet dengan contract address `C...` (56 karakter).
+- **G2**: Pengguna dapat **deposit** dan **withdraw/redeem** lewat UI, dengan feedback status transaksi yang jelas.
+- **G3**: Semua angka ditampilkan benar dalam desimal 7 digit; tidak ada bug pembulatan yang merugikan pengguna.
+- **G4**: Submission Aegis lengkap dan dapat diverifikasi (record, screenshot, JSON+MD, brief, link X).
+- **G5**: Repo publik yang bisa dibaca orang lain: README, arsitektur, dan cara menjalankan.
+- **G6**: Landing page publik yang jujur: menjelaskan produk dalam < 5 detik, menampilkan
   angka vault hidup, dan secara eksplisit menyebutkan keterbatasannya. Lihat `LANDING.md` (dokumen internal, tidak dipublikasikan).
 
 ### 3.2 Non-Tujuan (eksplisit TIDAK dikerjakan)
@@ -123,45 +123,45 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 
 ### 4.1 Persona
 
-**P1 — Rio, "Testnet Explorer" (persona utama)**
+**P1, Rio, "Testnet Explorer" (persona utama)**
 - Mahasiswa/developer, punya Freighter, pernah pakai DEX testnet.
 - Tujuan: mencoba vault, paham share-nya, melihat bukti on-chain.
 - Frustrasi: tidak tahu harus berapa desimal, takut salah jaringan, tidak paham
   kenapa jumlah share ≠ jumlah aset.
 - Konteks: desktop, malam hari, koneksi biasa.
 
-**P2 — Dita, "Developer Stellar"**
+**P2, Dita, "Developer Stellar"**
 - Sedang membangun produk yang butuh vault; mencari contoh implementasi SEP-56.
 - Tujuan: membaca kode, menjalankan lokal, membandingkan dengan spec.
 - Frustrasi: dokumentasi Draft berubah-ubah; tidak ada contoh UI.
 
-**P3 — Evaluator Aegis (sekunder, non-interaktif)**
+**P3, Evaluator Aegis (sekunder, non-interaktif)**
 - Menjalankan checker terhadap contract address, lalu memverifikasi artefak submission.
 - Kebutuhan: vault **permissionless**, terisi aset testnet, dan artefak mudah dicek.
 
 ### 4.2 Use case kunci
 
-**UC-1 — Deposit pertama**
+**UC-1, Deposit pertama**
 - Precondition: wallet terhubung, jaringan Testnet, saldo XLM cukup.
 - Flow: buka app → connect wallet → input jumlah → lihat preview share → konfirmasi → tanda tangan → status sukses + link explorer.
 - Outcome: saldo share bertambah, `total_assets` naik.
 - Edge case: signature ditolak, saldo kurang, deposit menghasilkan 0 share, RPC timeout.
 
-**UC-2 — Withdraw sebagian**
+**UC-2, Withdraw sebagian**
 - Precondition: punya share.
 - Flow: pilih mode "withdraw by assets" → input jumlah → lihat share yang akan dibakar → konfirmasi.
 - Outcome: aset diterima, share berkurang.
 - Edge case: jumlah melebihi `max_withdraw`, harga share berubah antar-preview, vault liquidity kurang.
 
-**UC-3 — Redeem seluruh posisi**
+**UC-3, Redeem seluruh posisi**
 - Flow: pilih "redeem all" → lihat estimasi aset → konfirmasi.
 - Outcome: share = 0, aset diterima penuh.
 
-**UC-4 — Verifikasi eksternal**
+**UC-4, Verifikasi eksternal**
 - Flow: pengguna membuka explorer dari link tx → mencocokkan jumlah dengan UI.
 - Outcome: kepercayaan naik; angka UI = angka on-chain.
 
-**UC-5 — Submission challenge**
+**UC-5, Submission challenge**
 - Flow: jalankan checker Aegis → rekam → screenshot → unduh JSON+MD → post X → kirim ke grup.
 - Outcome: submission diterima.
 
@@ -169,11 +169,11 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 
 ## 5. Kebutuhan Produk
 
-### 5.1 Functional Requirements — P0 (wajib, gate submission)
+### 5.1 Functional Requirements: P0 (wajib, gate submission)
 
 > Format acceptance criteria: **Given / When / Then**, harus bisa diuji manual.
 
-#### FR-01 — Koneksi wallet
+#### FR-01: Koneksi wallet
 - **Deskripsi:** Menghubungkan wallet browser (Freighter) dan menampilkan address.
 - **User story:** Sebagai Rio, saya ingin menghubungkan wallet agar bisa melihat posisi saya.
 - **Acceptance criteria:**
@@ -182,7 +182,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
   - [ ] Given wallet terhubung, when halaman dimuat ulang, then sesi tetap terbaca (auto-reconnect) atau ada tombol reconnect yang jelas.
   - [ ] Address ditampilkan terpotong (`GABC…XYZ`) + tombol copy.
 
-#### FR-02 — Pembacaan state vault
+#### FR-02: Pembacaan state vault
 - **Deskripsi:** Menampilkan `query_asset`, `total_assets`, `total_supply`, harga per share, saldo share user, saldo aset user.
 - **Acceptance criteria:**
   - [ ] Given contract address valid, when halaman dibuka, then kelima nilai tampil < 3 detik pada koneksi normal.
@@ -190,7 +190,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
   - [ ] Semua nilai diformat 7 desimal dengan pemisah ribuan; nilai mentah (`i128`) tersedia via tooltip/detail.
   - [ ] Given RPC gagal, when fetch, then tampil state error + tombol retry (bukan angka 0 palsu).
 
-#### FR-03 — Deposit
+#### FR-03: Deposit
 - **Deskripsi:** Deposit aset, dengan preview share sebelum eksekusi.
 - **Acceptance criteria:**
   - [ ] Given input jumlah valid, when user mengetik, then preview share muncul (debounce ≤ 400 ms) memakai `preview_deposit`.
@@ -200,7 +200,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
   - [ ] Given signature ditolak, when kembali ke form, then input tidak hilang dan tidak ada tx terkirim.
   - [ ] Given vault baru dan penyerang melakukan donation (transfer langsung ke kontrak) sebelum deposit korban, when korban deposit, then korban menerima share > 0 dan tidak kehilangan dana (bukti `decimals_offset` bekerja; test T04 di `TRD.md` §7.12).
 
-#### FR-04 — Withdraw & Redeem
+#### FR-04: Withdraw & Redeem
 - **Deskripsi:** Dua mode keluar: berdasarkan jumlah aset (`withdraw`) dan berdasarkan jumlah share (`redeem`).
 - **Acceptance criteria:**
   - [ ] User dapat berpindah mode tanpa kehilangan konteks posisi.
@@ -209,19 +209,19 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
   - [ ] Given "Redeem all", when diklik, then input terisi seluruh saldo share.
   - [ ] Tx sukses me-refresh saldo aset, saldo share, dan `total_assets`.
 
-#### FR-05 — Ringkasan posisi
+#### FR-05: Ringkasan posisi
 - **Deskripsi:** Kartu ringkasan: nilai posisi (share × harga), porsi kepemilikan (% dari `total_supply`), P/L sederhana terhadap rata-rata deposit (bila tersedia dari indexer).
 - **Acceptance criteria:**
   - [ ] Nilai posisi konsisten dengan `convert_to_assets(balance)`.
   - [ ] Given saldo 0, when ditampilkan, then empty state yang mengarahkan ke form deposit.
 
-#### FR-06 — Penanganan error & edge case
+#### FR-06: Penanganan error & edge case
 - **Acceptance criteria:**
   - [ ] Error dipetakan ke pesan manusiawi untuk minimal 6 kasus: wallet tidak ada, jaringan salah, saldo kurang, signature ditolak, RPC timeout, simulasi gagal.
   - [ ] Tidak ada stack trace / pesan `HostError` mentah yang tampil ke pengguna.
   - [ ] Setiap kegagalan tx menampilkan tombol "coba lagi" tanpa membuat tx duplikat.
 
-#### FR-07 — Kontrak vault & deployment
+#### FR-07: Kontrak vault & deployment
 - **Deskripsi:** Kontrak SEP-56 memakai library OpenZeppelin, di-deploy ke Testnet.
 - **Acceptance criteria:**
   - [ ] Contract address diawali `C`, panjang 56 karakter, diverifikasi di explorer.
@@ -230,24 +230,24 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
   - [ ] Event `Deposit` dan `Withdraw` terpancar dan terbaca dari RPC.
   - [ ] Unit test kontrak lulus (minimal: deposit, withdraw, redeem, konversi, kasus 0 share, overflow guard).
 
-#### FR-08 — Brief vault & dokumentasi
+#### FR-08: Brief vault & dokumentasi
 - **Acceptance criteria:**
   - [ ] README berisi: deskripsi project, alamat kontrak, fungsi umum vault, cara menjalankan lokal, dan tautan explorer.
   - [ ] Ada brief intro vault (mengikuti template Aegis) yang menjelaskan fungsi & fitur dalam bahasa non-teknis.
 
-#### FR-09 — Post X
+#### FR-09: Post X
 - **Acceptance criteria:**
   - [ ] Post dari akun X resmi project memuat screen recording proses pengecekan Aegis.
   - [ ] Post menyebut Aegis Vault dan memuat link app/kontrak.
   - [ ] Link post dikirim ke grup challenge.
 
-#### FR-10 — Bundel submission
+#### FR-10: Bundel submission
 - **Acceptance criteria:**
-  - [ ] 4 artefak lengkap: screen record, screenshot proses+hasil, file JSON, file MD — semuanya memperlihatkan address vault.
+  - [ ] 4 artefak lengkap: screen record, screenshot proses+hasil, file JSON, file MD, semuanya memperlihatkan address vault.
   - [ ] Artefak disimpan di satu folder lokal `~/lumbung-artifacts/submission/` (tidak di-commit) dan diunggah/di-share sesuai instruksi grup.
   - [ ] Ada checklist final yang ditandatangani (centang) sebelum dikirim.
 
-### 5.2 Functional Requirements — P1 (hanya jika P0 selesai lebih awal)
+### 5.2 Functional Requirements: P1 (hanya jika P0 selesai lebih awal)
 
 | ID | Fitur | Acceptance criteria ringkas |
 |---|---|---|
@@ -256,7 +256,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 | FR-13 | Tombol faucet testnet | Mengarah ke Friendbot dengan address user terisi otomatis |
 | FR-14 | Transfer share (SEP-41) | User dapat mengirim share ke address lain; saldo ter-update |
 
-### 5.3 Functional Requirements — P2 (dicatat, tidak dikerjakan sekarang)
+### 5.3 Functional Requirements: P2 (dicatat, tidak dikerjakan sekarang)
 
 - Strategi yield sederhana + tampilan APY
 - Multi-asset vault
@@ -264,14 +264,14 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 - Mode gelap, i18n (ID/EN)
 - Notifikasi email/Telegram saat tx selesai
 
-### 5.4 Functional Requirements — Landing Page (P0.5 / P1)
+### 5.4 Functional Requirements: Landing Page (P0.5 / P1)
 
 > Didefinisikan penuh di `LANDING.md` (dokumen internal, tidak dipublikasikan). Ringkasan trace:
 >
-> - **P0.5 (wajib, ~3 jam):** LP-01..LP-11 — routing `/` vs `/app`, nav + badge testnet,
+> - **P0.5 (wajib, ~3 jam):** LP-01..LP-11, routing `/` vs `/app`, nav + badge testnet,
 >   hero dengan statistik hidup, how it works, what is a share, why a standard vault,
 >   security & known limitations, FAQ jujur, footer, meta + OG image.
-> - **P1 (~4 jam, hanya bila Gate C hijau):** LP-12..LP-14 — halaman `/docs`,
+> - **P1 (~4 jam, hanya bila Gate C hijau):** LP-12..LP-14, halaman `/docs`,
 >   mechanics & transparency, roadmap jujur.
 >
 > **Aturan keras:** landing tidak boleh dikerjakan sebelum FR-03 (deposit) dan FR-04
@@ -309,10 +309,10 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 
 ### 7.1 Layar utama (P0)
 
-1. **Beranda / Vault** — satu halaman, tiga blok: header wallet, kartu statistik vault, panel aksi (tab Deposit | Withdraw).
-2. **Panel posisi** — saldo share, nilai aset, porsi kepemilikan.
-3. **Riwayat** — (P1) daftar transaksi.
-4. **Status transaksi** — modal/step yang tidak bisa ditutup sebelum hasil final.
+1. **Beranda / Vault**: satu halaman, tiga blok: header wallet, kartu statistik vault, panel aksi (tab Deposit | Withdraw).
+2. **Panel posisi**: saldo share, nilai aset, porsi kepemilikan.
+3. **Riwayat**: (P1) daftar transaksi.
+4. **Status transaksi**: modal/step yang tidak bisa ditutup sebelum hasil final.
 
 ### 7.2 Prinsip
 
@@ -320,7 +320,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 - **Satu aksi, satu signature.** Manfaatkan perilaku `transfer` langsung saat `operator == from` (tanpa `approve`).
 - **Jelaskan, jangan asumsikan.** Desimal, harga share, dan "kenapa share ≠ aset" diberi penjelasan singkat kontekstual.
 - **Gagal dengan jelas.** Setiap error punya penyebab + langkah berikutnya.
-- **Testnet terasa aman.** Label "TESTNET — dana tidak bernilai" selalu terlihat.
+- **Testnet terasa aman.** Label "TESTNET, dana tidak bernilai" selalu terlihat.
 
 ### 7.3 Alur utama
 
@@ -378,13 +378,13 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 |---|---|---|---|---|---|
 | M1 | Kelengkapan submission Aegis | 0/5 | 5/5 (4 artefak + link X) | 24 Okt 20.00 | Checklist §11 |
 | M2 | Alur deposit → withdraw terbukti on-chain | 0 | ≥ 1 tx sukses masing-masing | 22 Okt | Tx hash di explorer |
-| M3 | Waktu pengguna baru sampai deposit pertama | — | < 3 menit | 23 Okt | 3 uji usability (stopwatch) |
+| M3 | Waktu pengguna baru sampai deposit pertama | n/a | < 3 menit | 23 Okt | 3 uji usability (stopwatch) |
 | M4 | Checker Aegis berjalan sampai hasil keluar | 0/11 | 11/11 check mengembalikan hasil | 24 Okt | Screenshot |
-| M5 | Bug kritis terbuka saat submission | — | 0 | 24 Okt | Issue tracker |
-| M6 | Kontrak terverifikasi & dapat diakses publik | — | 100% | 21 Okt | Explorer + UI |
+| M5 | Bug kritis terbuka saat submission | n/a | 0 | 24 Okt | Issue tracker |
+| M6 | Kontrak terverifikasi & dapat diakses publik | n/a | 100% | 21 Okt | Explorer + UI |
 | M7 | (Pasca-challenge) wallet unik yang mencoba | 0 | ≥ 5 dalam 7 hari | 31 Okt | Indexer/RPC |
 
-> **Catatan:** reward Rp200.000 **bukan** metrik keberhasilan produk — itu konsekuensi
+> **Catatan:** reward Rp200.000 **bukan** metrik keberhasilan produk, itu konsekuensi
 > dari M1. Hasil PASS/FAIL checker juga bukan metrik; yang diukur adalah kelengkapan
 > dan kebenaran proses.
 
@@ -422,12 +422,12 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 | # | Pertanyaan | Keputusan dibutuhkan | Status |
 |---|---|---|---|
 | Q1 | Nama & branding final (tetap "Lumbung"?) | 20 Okt | ✅ **Lumbung** (working title, dipakai untuk submission) |
-| Q2 | Underlying asset: XLM SAC vs USDC testnet | 21 Okt | ✅ **XLM SAC** — tanpa trustline |
-| Q3 | Nilai `decimals_offset` (0 / 3 / 6) | 21 Okt | ✅ **3** — share jadi 10 desimal; semua formatter wajib dinamis |
+| Q2 | Underlying asset: XLM SAC vs USDC testnet | 21 Okt | ✅ **XLM SAC**, tanpa trustline |
+| Q3 | Nilai `decimals_offset` (0 / 3 / 6) | 21 Okt | ✅ **3**, share jadi 10 desimal; semua formatter wajib dinamis |
 | Q4 | Apakah backend indexer masuk sebelum deadline? | 22 Okt | ✅ **Tidak.** P1, dikerjakan setelah submission |
 | Q5 | Domain kustom atau subdomain Vercel? | 22 Okt | ✅ **`*.vercel.app`**; domain kustom hanya bila ada waktu di D3 |
 | Q6 | Handle X resmi project | 21 Okt | ✅ Buat akun resmi di D1, posting 1–2 update sebelum submission |
-| Q7 | Apakah perlu vault kedua sebagai "demo" untuk pembanding? | 23 Okt | ✅ **Tidak** — menambah permukaan gagal, tidak dinilai checker |
+| Q7 | Apakah perlu vault kedua sebagai "demo" untuk pembanding? | 23 Okt | ✅ **Tidak**, menambah permukaan gagal, tidak dinilai checker |
 
 ---
 
@@ -436,7 +436,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 ### 11.1 Timeline
 
 > **Rebaseline v0.3 (21 Okt 14.30).** Landing page sudah selesai lebih awal; kontrak
-> belum dimulai. Urutan di bawah adalah urutan yang **benar-benar** dieksekusi —
+> belum dimulai. Urutan di bawah adalah urutan yang **benar-benar** dieksekusi,
 > kontrak dulu, landing belakangan. Detail per blok ada di `TRD.md` §14.
 
 | Hari | Tanggal | Fokus | Exit criteria (gate) |
@@ -468,7 +468,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 | S5 | File Markdown hasil | `.md` | `~/lumbung-artifacts/submission/` | ⬜ |
 | S6 | Address vault + brief fungsi/fitur (template) | `.md`/`.pdf` | `~/lumbung-artifacts/submission/` | ⬜ |
 | S7 | Post X resmi project | URL | grup challenge | ⬜ |
-| S8 | Akun X resmi project | Profil | — | ⬜ |
+| S8 | Akun X resmi project | Profil | n/a | ⬜ |
 
 ### 11.4 Definition of Done (P0)
 
@@ -479,7 +479,7 @@ Sebuah requirement dianggap selesai hanya bila:
 
 ---
 
-## 12. Di Luar Cakupan (Out of Scope) — ringkasan
+## 12. Di Luar Cakupan (Out of Scope): ringkasan
 
 Mainnet · dana nyata · yield/APY · multi-asset · KYC · mobile native · governance ·
 audit pihak ketiga · fitur sosial · wallet selain browser extension · backend skalabel.
@@ -499,9 +499,9 @@ PRD ini disusun dengan menggabungkan praktik berikut:
 | Standar domain | SEP-56 + OpenZeppelin `stellar-contracts` | Batasan teknis di §8 dan acceptance criteria kontrak |
 
 **Referensi:**
-- SEP-56 Tokenized Vault Standard — https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0056.md
-- OpenZeppelin Stellar Contracts — https://github.com/OpenZeppelin/stellar-contracts
-- Contoh vault resmi — `examples/fungible-vault`
+- SEP-56 Tokenized Vault Standard, https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0056.md
+- OpenZeppelin Stellar Contracts, https://github.com/OpenZeppelin/stellar-contracts
+- Contoh vault resmi, `examples/fungible-vault`
 - SOW Aegis Vault Reward Challenge (Google Docs, dibagikan via chat)
 
 ---
@@ -514,7 +514,7 @@ PRD ini disusun dengan menggabungkan praktik berikut:
 | **Share** | Token yang mewakili porsi kepemilikan pada vault |
 | **SEP-41** | Standar token fungible Soroban |
 | **SEP-56** | Standar tokenized vault Soroban (padanan ERC-4626) |
-| **SAC** | Stellar Asset Contract — versi kontrak dari aset Stellar |
+| **SAC** | Stellar Asset Contract, versi kontrak dari aset Stellar |
 | **Stroop** | Satuan terkecil; 1 XLM = 10.000.000 stroop |
 | **`i128`** | Tipe integer 128-bit di Soroban; semua nominal memakai ini |
 | **RPC** | Endpoint untuk membaca/mengirim transaksi Soroban |

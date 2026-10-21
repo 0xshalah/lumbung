@@ -2,11 +2,11 @@
 
 React 19 single-page app for the Lumbung SEP-56 vault on Stellar Testnet.
 
-- `/` — landing page, docs hub, live vault stats
-- `/app` — vault dashboard: connect Freighter, deposit, withdraw, redeem
-- `/docs` — plain-language mechanics (shares, decimals, rounding, limits)
-- `/status` — hand-maintained status snapshot
-- `/changelog` — release history
+- `/`: landing page, docs hub, live vault stats
+- `/app`: vault dashboard: connect Freighter, deposit, withdraw, redeem
+- `/docs`: plain-language mechanics (shares, decimals, rounding, limits)
+- `/status`: hand-maintained status snapshot
+- `/changelog`: release history
 
 There is **no backend**. The app talks straight to Soroban RPC and Horizon.
 
@@ -74,7 +74,7 @@ with `scValToNative`. The wallet's spendable XLM comes from Horizon.
 ## Decimals
 
 XLM has 7 decimals. Shares have **10** (asset decimals + offset 3). Formatting
-and parsing therefore take an explicit decimals argument — do not reuse the
+and parsing therefore take an explicit decimals argument. Do not reuse the
 XLM formatter for shares. See `src/lib/format.js` and `src/lib/parse.js`.
 
 ## Deploy

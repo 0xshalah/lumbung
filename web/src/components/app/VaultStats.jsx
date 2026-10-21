@@ -9,7 +9,7 @@ export const VaultStats = ({ c, vault, connected, refresh }) => {
     { k: c.stats.assets, v: d ? `${formatXlm(d.totalAssets)} XLM` : dash, raw: d && `${d.totalAssets} (i128)`, id: "vault-total-assets" },
     { k: c.stats.price, v: d ? `${sharePrice(d.totalAssets, d.totalSupply)} XLM` : dash, id: "vault-share-price" },
     { k: c.stats.supply, v: d ? formatShares(d.totalSupply) : dash, raw: d && `${d.totalSupply} (i128)`, id: "vault-shares-issued" },
-    { k: c.stats.mine, v: d && connected ? formatShares(d.shares) : "—", raw: d && connected ? `${d.shares} (i128)` : undefined, id: "vault-user-shares" },
+    { k: c.stats.mine, v: d && connected ? formatShares(d.shares) : "n/a", raw: d && connected ? `${d.shares} (i128)` : undefined, id: "vault-user-shares" },
   ];
   return (
     <section className="rounded-[10px] border border-[#1F2126] bg-[#121317]" data-testid="vault-stats-card">
