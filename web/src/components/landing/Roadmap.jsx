@@ -12,7 +12,7 @@ export const Roadmap = () => {
         {t.road.cols.map((c, i) => (
           <Reveal key={c.k} delay={i * 0.06} className="h-full">
             <div className={`h-full rounded-[10px] border border-[#1F2126] p-6 ${i === 3 ? "bg-transparent border-dashed" : "bg-[#121317]"}`} data-testid={`roadmap-col-${i + 1}`}>
-              <span className={`inline-block rounded-full border px-3 py-1 font-mono text-[12px] mb-6 ${tone[i]}`}>{c.k}</span>
+              <span className={`inline-block rounded-[4px] border px-2.5 py-1 font-mono text-[12px] mb-6 ${tone[i]}`}>{c.k}</span>
               <ul className="space-y-3">
                 {c.items.map((it) => (
                   <li key={it} className={`text-[14px] leading-relaxed ${i === 3 ? "text-[#8A9099] line-through decoration-[#1F2126]" : "text-[#C9CDD4]"}`}>{it}</li>

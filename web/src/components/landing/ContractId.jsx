@@ -28,7 +28,7 @@ export const ContractId = ({ compact = false, testid = "contract-id" }) => {
         disabled={!valid}
         aria-label={t.hero.copy}
         data-testid={`${testid}-copy-btn`}
-        className="inline-flex items-center gap-1 rounded-[6px] px-1.5 py-0.5 text-[#8A9099] hover:text-[#E7E9EE] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+        className="inline-flex items-center gap-1 rounded-[6px] px-2 min-h-[44px] text-[#8A9099] hover:text-[#E7E9EE] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
       >
         {copied ? <Check size={13} className="text-[#4ADE80]" /> : <Copy size={13} />}
         {copied ? t.hero.copied : t.hero.copy}

@@ -27,8 +27,8 @@ export const Security = () => {
     <section className="max-w-[1100px] mx-auto px-5 md:px-6 py-24 md:py-32" data-testid="security-section">
       <SectionHead id="sec" label={t.sec.label} title={t.sec.title} />
       <div className="grid md:grid-cols-2 gap-4">
-        <Reveal className="h-full"><List title={t.sec.didT} items={t.sec.did} ok testid="security-did-list" /></Reveal>
-        <Reveal delay={0.08} className="h-full"><List title={t.sec.notT} items={t.sec.not} testid="security-not-list" /></Reveal>
+        <Reveal from="left" className="h-full"><List title={t.sec.didT} items={t.sec.did} ok testid="security-did-list" /></Reveal>
+        <Reveal from="right" delay={0.08} className="h-full"><List title={t.sec.notT} items={t.sec.not} testid="security-not-list" /></Reveal>
       </div>
       <p className="mt-6 text-[14px] text-[#A9AEB7] max-w-[68ch]">{t.sec.foot}</p>
     </section>

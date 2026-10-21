@@ -6,7 +6,7 @@ const en = {
     sub: "Lumbung is an open tokenized vault on Stellar Soroban. Deposit, receive shares, withdraw any time. No lockups. No admin keys.",
     cta: "Open app",
     cta2: "Read the SEP-56 spec",
-    notice: "TESTNET — assets have no value. Do not send real funds.",
+    notice: "TESTNET: assets have no value. Do not send real funds.",
     contract: "Contract ID",
     pending: "Not deployed yet",
     copy: "Copy",
@@ -27,7 +27,7 @@ const en = {
   },
   marquee: ["SEP-56", "SEP-41 shares", "i128", "10-decimal shares", "XLM via SAC", "no admin keys", "no lockups", "rounding favours the vault"],
   how: {
-    label: "01 — How it works",
+    label: "01: How it works",
     title: "Three steps. One signature each.",
     steps: [
       { k: "Connect", t: "Connect your wallet", d: "Use the Freighter browser extension on Stellar Testnet." },
@@ -36,7 +36,7 @@ const en = {
     ],
   },
   share: {
-    label: "02 — What is a share?",
+    label: "02: What is a share?",
     title: "A share is a portion, not a fixed amount of XLM.",
     rows: [
       { a: "Deposit 100 XLM", b: "receive 100 shares" },
@@ -47,7 +47,7 @@ const en = {
     close: "When the pool changes, the value of each share changes with it. Your share count stays the same; what it represents moves.",
   },
   why: {
-    label: "03 — Why a standard vault",
+    label: "03: Why a standard vault",
     title: "Boring by design. Predictable on purpose.",
     cards: [
       { t: "Composable", d: "Shares are standard SEP-41 tokens. They can be transferred, used as collateral, and integrated directly by other protocols." },
@@ -56,26 +56,26 @@ const en = {
     ],
   },
   mech: {
-    label: "04 — Mechanics & transparency",
+    label: "04: Mechanics & transparency",
     title: "The parameters, in plain view.",
     head: ["Property", "Value"],
     rows: [
-      ["Standard", "SEP-56 (Draft v0.1.2) — the Soroban equivalent of ERC-4626"],
-      ["Underlying asset", "XLM via Stellar Asset Contract (SAC) — no trustline needed"],
+      ["Standard", "SEP-56 (Draft v0.1.2), the Soroban equivalent of ERC-4626"],
+      ["Underlying asset", "XLM via Stellar Asset Contract (SAC), no trustline needed"],
       ["Decimals", "XLM: 7 (1 XLM = 10,000,000 stroops) · shares: 10 (offset 3) · raw values are i128"],
-      ["Decimals offset", "3, fixed in the constructor — reserves virtual shares/assets against donation attacks"],
-      ["Rounding policy", "Always favours the vault — deposit floor, mint ceil, withdraw ceil, redeem floor"],
+      ["Decimals offset", "3, fixed in the constructor, reserves virtual shares/assets against donation attacks"],
+      ["Rounding policy", "Always favours the vault: deposit floor, mint ceil, withdraw ceil, redeem floor"],
       ["Admin control over funds", "None"],
     ],
     note: "Rounding favours the vault on purpose: it protects the pool from being drained one stroop at a time by repeated transactions.",
   },
   sec: {
-    label: "05 — Security & known limitations",
+    label: "05: Security & known limitations",
     title: "What we did. What we have not done yet.",
     didT: "What we did",
     notT: "What we have not done yet",
     did: [
-      "Built on OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault) — the library is audited; our integration is 20/20 unit tests green.",
+      "Built on OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault). The library is audited; our integration is 20/20 unit tests green.",
       "Enabled decimals_offset in the constructor to raise the cost of donation / inflation attacks on a fresh vault.",
       "Verified rounding direction (deposit, mint, withdraw, redeem) and overflow guards with contract unit tests.",
       "deposit, mint, withdraw and redeem use the high-level path (auth + Deposit/Withdraw events). No admin function can pull user funds.",
@@ -83,7 +83,7 @@ const en = {
     ],
     not: [
       "Our own vault contract has not been independently audited by a third party.",
-      "No yield / APY strategy — the pool does not grow on its own in this version.",
+      "No yield / APY strategy: the pool does not grow on its own in this version.",
       "Testnet only. There is no plan to deploy to Mainnet.",
       "No multi-asset support, no transaction history or TVL chart in the base release (queued for P1), no native mobile wallet.",
       "Not yet used by real users outside test scenarios.",
@@ -91,7 +91,7 @@ const en = {
     foot: "Every claim under “What we did” must be verifiable from the repository, unit tests, or the explorer.",
   },
   road: {
-    label: "06 — Roadmap",
+    label: "06: Roadmap",
     title: "Status, not promises. No invented dates.",
     cols: [
       { k: "Now", items: ["SEP-56 testnet vault", "Deposit / withdraw / redeem UI with previews", "Live public stats"] },
@@ -101,7 +101,7 @@ const en = {
     ],
   },
   docs: {
-    label: "07 — Documentation",
+    label: "07: Documentation",
     title: "Everything you need to verify, in one place.",
     items: [
       { t: "README", d: "Project overview, contract address, run it locally" },
@@ -113,7 +113,7 @@ const en = {
     ],
   },
   faq: {
-    label: "08 — FAQ",
+    label: "08: FAQ",
     title: "Hard questions, honest answers.",
     items: [
       { q: "Is this running on Mainnet?", a: "No. It runs on Testnet only, and every asset in it has no monetary value." },
@@ -126,7 +126,7 @@ const en = {
   },
   footer: {
     brand: "Lumbung · Stellar Testnet",
-    notice: "Testnet only — assets have no value.",
+    notice: "Testnet only: assets have no value.",
     license: "MIT License",
     contact: "Contact / issue tracker",
     changelog: "Changelog",
@@ -147,7 +147,7 @@ const id = {
     sub: "Lumbung adalah tokenized vault terbuka di Stellar Soroban. Setor, terima share, tarik kapan saja. Tanpa penguncian dana. Tanpa kunci admin.",
     cta: "Buka aplikasi",
     cta2: "Baca spesifikasi SEP-56",
-    notice: "TESTNET — aset tidak bernilai. Jangan kirim dana nyata.",
+    notice: "TESTNET: aset tidak bernilai. Jangan kirim dana nyata.",
     contract: "Contract ID",
     pending: "Belum di-deploy",
     copy: "Salin",
@@ -168,7 +168,7 @@ const id = {
   },
   marquee: ["SEP-56", "share SEP-41", "i128", "share 10 desimal", "XLM via SAC", "tanpa kunci admin", "tanpa penguncian", "pembulatan memihak vault"],
   how: {
-    label: "01 — Cara kerja",
+    label: "01: Cara kerja",
     title: "Tiga langkah. Satu tanda tangan per aksi.",
     steps: [
       { k: "Hubungkan", t: "Hubungkan dompet", d: "Gunakan ekstensi browser Freighter di jaringan Stellar Testnet." },
@@ -177,7 +177,7 @@ const id = {
     ],
   },
   share: {
-    label: "02 — Apa itu share?",
+    label: "02: Apa itu share?",
     title: "Share adalah porsi, bukan jumlah XLM yang tetap.",
     rows: [
       { a: "Deposit 100 XLM", b: "menerima 100 share" },
@@ -188,7 +188,7 @@ const id = {
     close: "Ketika pool berubah, nilai tiap share ikut berubah. Jumlah share Anda tetap; yang diwakilinya bergerak.",
   },
   why: {
-    label: "03 — Mengapa vault standar",
+    label: "03: Mengapa vault standar",
     title: "Membosankan secara desain. Dapat diprediksi dengan sengaja.",
     cards: [
       { t: "Composable", d: "Share adalah token standar SEP-41 yang dapat ditransfer, dijadikan agunan, dan diintegrasikan langsung oleh protokol lain." },
@@ -197,26 +197,26 @@ const id = {
     ],
   },
   mech: {
-    label: "04 — Mekanisme & transparansi",
+    label: "04: Mekanisme & transparansi",
     title: "Parameternya, terbuka untuk dilihat.",
     head: ["Properti", "Nilai"],
     rows: [
-      ["Standar", "SEP-56 (Draft v0.1.2) — padanan ERC-4626 di Soroban"],
-      ["Aset dasar", "XLM melalui Stellar Asset Contract (SAC) — tanpa trustline"],
+      ["Standar", "SEP-56 (Draft v0.1.2), padanan ERC-4626 di Soroban"],
+      ["Aset dasar", "XLM melalui Stellar Asset Contract (SAC), tanpa trustline"],
       ["Desimal", "XLM: 7 (1 XLM = 10.000.000 stroop) · share: 10 (offset 3) · nilai mentah i128"],
-      ["Decimals offset", "3, ditetapkan di konstruktor — menyediakan virtual share/asset terhadap serangan donation"],
-      ["Kebijakan pembulatan", "Selalu menguntungkan vault — deposit floor, mint ceil, withdraw ceil, redeem floor"],
+      ["Decimals offset", "3, ditetapkan di konstruktor, menyediakan virtual share/asset terhadap serangan donation"],
+      ["Kebijakan pembulatan", "Selalu menguntungkan vault: deposit floor, mint ceil, withdraw ceil, redeem floor"],
       ["Kontrol admin atas dana", "Tidak ada"],
     ],
     note: "Pembulatan sengaja memihak vault untuk melindungi pool agar tidak dikuras satu stroop demi satu stroop oleh transaksi berulang.",
   },
   sec: {
-    label: "05 — Keamanan & keterbatasan",
+    label: "05: Keamanan & keterbatasan",
     title: "Yang sudah kami lakukan. Yang belum.",
     didT: "Yang sudah kami lakukan",
     notT: "Yang belum kami lakukan",
     did: [
-      "Dibangun di atas OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault) — pustakanya teraudit; integrasi kami lulus 20/20 unit test.",
+      "Dibangun di atas OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault). Pustakanya teraudit; integrasi kami lulus 20/20 unit test.",
       "Mengaktifkan decimals_offset di konstruktor untuk menaikkan biaya serangan donasi/inflasi pada vault baru.",
       "Memverifikasi arah pembulatan (deposit, mint, withdraw, redeem) dan pencegahan overflow lewat unit test kontrak.",
       "deposit, mint, withdraw, dan redeem memakai jalur high-level (auth + event Deposit/Withdraw). Tidak ada fungsi admin yang dapat menarik dana pengguna.",
@@ -224,7 +224,7 @@ const id = {
     ],
     not: [
       "Kontrak vault kami sendiri belum diaudit secara independen oleh pihak ketiga.",
-      "Belum ada strategi yield/APY — pool tidak tumbuh dengan sendirinya pada versi ini.",
+      "Belum ada strategi yield/APY: pool tidak tumbuh dengan sendirinya pada versi ini.",
       "Hanya Testnet. Tidak ada rencana deployment ke Mainnet.",
       "Belum multi-asset, belum ada riwayat transaksi atau grafik TVL di rilis dasar (antrean P1), belum ada dompet mobile native.",
       "Belum digunakan pengguna nyata di luar skenario pengujian.",
@@ -232,7 +232,7 @@ const id = {
     foot: "Setiap klaim di “Yang sudah kami lakukan” wajib dapat dibuktikan dari repositori, unit test, atau explorer.",
   },
   road: {
-    label: "06 — Peta jalan",
+    label: "06: Peta jalan",
     title: "Status, bukan janji. Tanpa tanggal karangan.",
     cols: [
       { k: "Now", items: ["Vault testnet SEP-56", "UI deposit / withdraw / redeem dengan pratinjau", "Statistik publik langsung"] },
@@ -242,7 +242,7 @@ const id = {
     ],
   },
   docs: {
-    label: "07 — Dokumentasi",
+    label: "07: Dokumentasi",
     title: "Semua yang perlu diverifikasi, di satu tempat.",
     items: [
       { t: "README", d: "Deskripsi proyek, alamat kontrak, cara menjalankan lokal" },
@@ -254,7 +254,7 @@ const id = {
     ],
   },
   faq: {
-    label: "08 — Pertanyaan umum",
+    label: "08: Pertanyaan umum",
     title: "Pertanyaan sulit, jawaban jujur.",
     items: [
       { q: "Apakah ini berjalan di Mainnet?", a: "Tidak. Aplikasi ini hanya berjalan di Testnet dan seluruh aset di dalamnya tidak memiliki nilai uang." },
@@ -267,7 +267,7 @@ const id = {
   },
   footer: {
     brand: "Lumbung · Stellar Testnet",
-    notice: "Hanya testnet — aset tidak bernilai.",
+    notice: "Hanya testnet: aset tidak bernilai.",
     license: "Lisensi MIT",
     contact: "Kontak / issue tracker",
     changelog: "Changelog",

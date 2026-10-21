@@ -5,7 +5,7 @@ export const Marquee = () => {
   const row = t.marquee.map((m) => (
     <span key={m} className="flex items-center gap-10 pr-10">
       <span>{m}</span>
-      <span className="text-[#E8B33A]" aria-hidden="true">✦</span>
+      <span className="text-[#E8B33A]" aria-hidden="true">·</span>
     </span>
   ));
   return (

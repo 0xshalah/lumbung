@@ -42,7 +42,7 @@ export const StatsPanel = () => {
   }, [load]);
 
   const d = state.data;
-  const dash = state.status === "loading" ? "…" : "—";
+  const dash = state.status === "loading" ? "…" : "n/a";
   const cells = [
     { k: t.stats.assets, v: d ? `${formatXlm(d.totalAssets, 2)} XLM` : dash, id: "stat-total-assets" },
     { k: t.stats.price, v: d ? `${sharePrice(d.totalAssets, d.totalSupply)} XLM` : dash, id: "stat-share-price" },
@@ -51,7 +51,7 @@ export const StatsPanel = () => {
   ];
 
   return (
-    <motion.div {...tilt} className="relative rounded-[10px] border border-[#1F2126] bg-[#121317]/90 backdrop-blur-sm will-change-transform" data-testid="stats-panel">
+    <motion.div {...tilt} className="relative rounded-[10px] border border-[#1F2126] bg-[#121317]/95 will-change-transform" data-testid="stats-panel">
       <div className="flex items-center justify-between gap-3 border-b border-[#1F2126] px-4 md:px-5 py-3">
         <div className="flex items-center gap-2">
           <span className={`h-2 w-2 rounded-full ${state.status === "ok" ? "bg-[#4ADE80]" : state.status === "error" ? "bg-[#F87171]" : "bg-[#E8B33A] animate-pulse"}`} />
@@ -66,7 +66,7 @@ export const StatsPanel = () => {
         ) : (
           <p className="font-mono text-[12px] text-[#8A9099]">{state.status === "loading" ? t.stats.loading : t.stats.refresh}</p>
         )}
-        <button onClick={load} data-testid="stats-retry-btn" className="group inline-flex items-center gap-1.5 rounded-[8px] border border-[#1F2126] px-3 py-1.5 text-[12px] text-[#E7E9EE] hover:border-[#E8B33A] hover:text-[#E8B33A] transition-colors duration-150">
+        <button onClick={load} data-testid="stats-retry-btn" className="group inline-flex items-center gap-1.5 rounded-[8px] border border-[#1F2126] px-3 min-h-[44px] text-[12px] text-[#E7E9EE] hover:border-[#E8B33A] hover:text-[#E8B33A] transition-colors duration-150">
           <RotateCw size={13} className="transition-transform duration-300 group-hover:rotate-180" />{t.stats.retry}
         </button>
       </div>

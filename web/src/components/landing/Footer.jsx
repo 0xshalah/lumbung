@@ -25,7 +25,7 @@ export const Footer = () => {
           </div>
           <ul className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-6">
             {links.map((k) => (
-              <li key={k.id}><a href={k.h} data-testid={k.id} className="text-[14px] text-[#A9AEB7] hover:text-[#E8B33A] transition-colors duration-150">{k.l}</a></li>
+              <li key={k.id}><a href={k.h} data-testid={k.id} className="inline-flex items-center min-h-[44px] text-[14px] text-[#A9AEB7] hover:text-[#E8B33A] transition-colors duration-150">{k.l}</a></li>
             ))}
           </ul>
         </div>

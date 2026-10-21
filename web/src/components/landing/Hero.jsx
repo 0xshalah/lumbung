@@ -20,7 +20,6 @@ export const Hero = () => {
   const { t } = useLang();
   return (
     <section className="relative overflow-hidden" data-testid="hero-section">
-      <div className="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
       <div className="hero-glow absolute -top-40 right-[-10%] h-[520px] w-[520px] pointer-events-none" aria-hidden="true" />
       <div className="relative max-w-[1100px] mx-auto px-5 md:px-6 pt-8 md:pt-12 pb-20 md:pb-28">
         <Fade delay={0} className="mb-8 md:mb-10">

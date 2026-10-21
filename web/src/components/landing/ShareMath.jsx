@@ -29,9 +29,6 @@ export const ShareMath = () => {
       <div className="grid lg:grid-cols-12 gap-6">
         <Reveal className="lg:col-span-8">
           <div className="rounded-[10px] border border-[#1F2126] bg-[#121317] p-6 md:p-8 font-mono" data-testid="share-math-box">
-            <div className="flex gap-1.5 mb-6" aria-hidden="true">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#1F2126]" /><span className="h-2.5 w-2.5 rounded-full bg-[#1F2126]" /><span className="h-2.5 w-2.5 rounded-full bg-[#1F2126]" />
-            </div>
             <ul className="space-y-4">
               {t.share.rows.map((r, i) => (
                 <li key={r.a} className="grid sm:grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4 text-[14px] md:text-[16px] tabular-nums border-b border-dashed border-[#1F2126] pb-4 last:border-0 last:pb-0" data-testid={`share-row-${i + 1}`}>

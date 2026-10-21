@@ -8,7 +8,7 @@ const Value = ({ v, testid, title, compact }) => (
       animate={{ opacity: 1 }}
       transition={{ duration: 0.2 }}
       title={title}
-      className={`block font-mono ${compact ? "text-[18px] md:text-[20px]" : "text-[22px] md:text-[26px]"} tabular-nums text-[#E7E9EE] truncate`}
+      className={`block font-mono ${compact ? "text-[18px] md:text-[20px]" : "text-[22px] md:text-[26px]"} tabular-nums text-[#E7E9EE] break-words`}
       data-testid={testid}
     >
       {v}
