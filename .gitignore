@@ -1,0 +1,22 @@
+# Build artifacts
+target/
+node_modules/
+build/
+dist/
+
+# Secrets & local env
+.env
+.env*.local
+
+# Contract artifacts
+*.wasm
+
+# Large media
+submission/*.mp4
+
+# Private source material
+Chat WhatsApp*.txt
+docs/raw/
+
+# OS noise
+.DS_Store
