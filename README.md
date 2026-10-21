@@ -34,7 +34,7 @@ contracts/lumbung-vault/   Kontrak Rust (OpenZeppelin stellar-tokens 0.7.2)
 deployments/testnet.json   Alamat, hash, dan tx hash deployment
 PRD.md / TRD.md / TASKS.md Dokumen produk, teknis, dan task list
 LANDING.md                 Spesifikasi landing page
-web/                       Aplikasi web (menyusul)
+web/                       Web app React 19 (landing + dashboard vault)
 ```
 
 ## Build & test
@@ -57,6 +57,27 @@ stellar contract deploy \
   -- --name "Lumbung Vault Share" --symbol "LMB" \
      --asset "$XLM_SAC" --decimals_offset 3
 ```
+
+## Web app
+
+`web/` berisi landing page dan dashboard vault (React 19 + CRACO). Tidak ada
+backend: state dibaca langsung dari Soroban RPC, transaksi ditandatangani
+Freighter dan dikirim ke Testnet.
+
+```bash
+cd web
+npm install
+npm start          # http://localhost:3000
+CI=false npm run build
+```
+
+Halaman: `/` (landing + statistik live), `/app` (deposit/withdraw/redeem),
+`/docs`, `/status`, `/changelog`. Detail arsitektur dan env ada di
+[`web/README.md`](./web/README.md).
+
+Alur demo: pasang Freighter → pilih Testnet → buka `/app` → hubungkan dompet →
+deposit XLM → withdraw atau redeem. Saldo share dan total aset diperbarui
+langsung dari kontrak.
 
 ## Lisensi
 
