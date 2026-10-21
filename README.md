@@ -1,0 +1,63 @@
+# Lumbung Vault
+
+Vault tokenized **SEP-56** di Stellar Testnet. Menyimpan XLM, menerbitkan share
+(`LMB`) yang nilainya mengikuti total aset di vault.
+
+> **Testnet only.** Tidak ada dana nyata. Kontrak tidak memiliki admin, upgrade,
+> atau pause — tidak ada pihak yang bisa membekukan atau mengganti aset.
+
+## Kontrak
+
+| Item | Nilai |
+|---|---|
+| Network | Stellar Testnet (Protocol 29) |
+| Contract ID | `CDHICU2WIUHKLYPQCXD7ZD2VABMEGBR2G3TYEVC4Q5PMTCR6JHST55GI` |
+| Explorer | https://stellar.expert/explorer/testnet/contract/CDHICU2WIUHKLYPQCXD7ZD2VABMEGBR2G3TYEVC4Q5PMTCR6JHST55GI |
+| Underlying | XLM via SAC `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC` |
+| Share decimals | **10** (asset 7 + offset 3) |
+| Wasm SHA-256 | `fe91db2b93c9c83caf22bd5cfb05caed21f8287d68cf410f1fa9dc6ca0434501` |
+
+Detail deployment (tx hash, state awal, akun demo) ada di
+[`deployments/testnet.json`](./deployments/testnet.json).
+
+## Kenapa `decimals_offset = 3`
+
+Share memakai 10 desimal, bukan 7. Offset ini melindungi depositor pertama dari
+serangan donation/inflation: penyerang harus menyumbang sekitar 1000× deposit
+korban agar share korban membulat ke nol — dan pada titik itu serangan selalu
+merugikan penyerang. Dibuktikan oleh test `t04_donation_attack_unprofitable`.
+
+## Struktur
+
+```
+contracts/lumbung-vault/   Kontrak Rust (OpenZeppelin stellar-tokens 0.7.2)
+deployments/testnet.json   Alamat, hash, dan tx hash deployment
+PRD.md / TRD.md / TASKS.md Dokumen produk, teknis, dan task list
+LANDING.md                 Spesifikasi landing page
+web/                       Aplikasi web (menyusul)
+```
+
+## Build & test
+
+Prasyarat: Rust ≥ 1.84, target `wasm32v1-none`, Stellar CLI 28.x.
+
+```bash
+cd contracts/lumbung-vault
+cargo test                      # 20 test
+stellar contract build          # → target/wasm32v1-none/release/lumbung_vault.wasm
+```
+
+Deploy ulang ke testnet:
+
+```bash
+export XLM_SAC=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC
+stellar contract deploy \
+  --wasm target/wasm32v1-none/release/lumbung_vault.wasm \
+  --source-account deployer --network testnet --optimize=false \
+  -- --name "Lumbung Vault Share" --symbol "LMB" \
+     --asset "$XLM_SAC" --decimals_offset 3
+```
+
+## Lisensi
+
+MIT (kontrak memakai OpenZeppelin `stellar-tokens`, Apache-2.0).

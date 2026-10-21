@@ -1,0 +1,42 @@
+{
+  "network": "testnet",
+  "network_passphrase": "Test SDF Network ; September 2015",
+  "rpc_url": "https://soroban-testnet.stellar.org",
+  "protocol": 29,
+  "deployed_at": "2026-10-21T08:37:57Z",
+  "deploy_ledger": 5309658,
+  "contract_id": "CDHICU2WIUHKLYPQCXD7ZD2VABMEGBR2G3TYEVC4Q5PMTCR6JHST55GI",
+  "wasm_sha256": "fe91db2b93c9c83caf22bd5cfb05caed21f8287d68cf410f1fa9dc6ca0434501",
+  "wasm_size_bytes": 29537,
+  "xlm_sac": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+  "accounts": {
+    "deployer": "GAJH4JIFD46BTDFIGLFS427YNDNCCRN3BYBMU6LMARYBR2GRJGB423BI",
+    "alice": "GBW2KXNKPK4BZ5OCUFEXTL4ZAUCPQIZRMBXKCBCTJIYE6H4E5IASI5K3"
+  },
+  "tx": {
+    "upload_wasm": "b1330c9f83758416d767fd6936ecb79e773cfb3f5cccfb434fee4db770f3ccf9",
+    "deploy": "8a8522a594e36f0a01a11fa947f847846805a92c8be1507ff24ffcb408ffca93",
+    "deposit_deployer_1xlm": "23e09848de3119e5b45a3a799dc41b43a7d2e83ccd75d789ed93b2bc996d2e85",
+    "deposit_deployer_9xlm": "4ca30231e7247877cb3eb79847776bd6b299ded8ebedc5dfbf963b1bb5acf03e",
+    "withdraw_deployer_4xlm": "19aacb66e62c022a11c148bcb6ac6ecfce1dd93c540e16ce3c42b253a3e75b2a",
+    "deposit_alice_5xlm": "10db67b657d0b85058133c219fd05a8d4d85b5170f4b4ea5948535aa9662e5ca"
+  },
+  "token": {
+    "name": "Lumbung Vault Share",
+    "symbol": "LMB",
+    "decimals": 10,
+    "asset_decimals": 7,
+    "decimals_offset": 3
+  },
+  "state": {
+    "total_assets_stroops": "110000000",
+    "total_supply_raw": "110000000000",
+    "deployer_shares_raw": "60000000000",
+    "alice_shares_raw": "50000000000"
+  },
+  "notes": [
+    "Wasm hash on-chain diverifat identik dengan artifact lokal (contract info hash).",
+    "Deploy pertama gagal 502 saat simulasi; wasm sudah ter-upload, deploy diulang dengan --wasm-hash.",
+    "Tidak ada admin, upgrade, atau pause."
+  ]
+}
