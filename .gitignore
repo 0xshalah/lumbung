@@ -1,3 +1,7 @@
+# Submission artifacts & chat logs — kept local only, not published
+submission/
+Chat WhatsApp*.txt
+
 # Rust / Cargo build artifacts
 target/
 
