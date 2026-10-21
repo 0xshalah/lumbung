@@ -180,7 +180,7 @@ lumbung/                            # repo publik
 │       ├── src/
 │       │   ├── lib.rs
 │       │   └── test.rs
-│       └── test_snapshots/         # snapshot stellar CLI (20 test)
+│       └── test_snapshots/         # snapshot stellar CLI (21 test)
 ├── web/
 │   ├── package.json
 │   ├── package-lock.json           # WAJIB di-commit

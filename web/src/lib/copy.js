@@ -75,7 +75,7 @@ const en = {
     didT: "What we did",
     notT: "What we have not done yet",
     did: [
-      "Built on OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault). The library is audited; our integration is 20/20 unit tests green.",
+      "Built on OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault). The library is audited; our integration is 21/21 unit tests green.",
       "Enabled decimals_offset in the constructor to raise the cost of donation / inflation attacks on a fresh vault.",
       "Verified rounding direction (deposit, mint, withdraw, redeem) and overflow guards with contract unit tests.",
       "deposit, mint, withdraw and redeem use the high-level path (auth + Deposit/Withdraw events). No admin function can pull user funds.",
@@ -216,7 +216,7 @@ const id = {
     didT: "Yang sudah kami lakukan",
     notT: "Yang belum kami lakukan",
     did: [
-      "Dibangun di atas OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault). Pustakanya teraudit; integrasi kami lulus 20/20 unit test.",
+      "Dibangun di atas OpenZeppelin stellar-tokens 0.7.2 (FungibleToken<Vault> + FungibleVault). Pustakanya teraudit; integrasi kami lulus 21/21 unit test.",
       "Mengaktifkan decimals_offset di konstruktor untuk menaikkan biaya serangan donasi/inflasi pada vault baru.",
       "Memverifikasi arah pembulatan (deposit, mint, withdraw, redeem) dan pencegahan overflow lewat unit test kontrak.",
       "deposit, mint, withdraw, dan redeem memakai jalur high-level (auth + event Deposit/Withdraw). Tidak ada fungsi admin yang dapat menarik dana pengguna.",

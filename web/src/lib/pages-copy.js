@@ -19,7 +19,7 @@ export const pagesCopy = {
       sub: "A hand-maintained snapshot. No automated uptime claims, we only state what we have verified.",
       updated: "Last updated",
       items: [
-        { k: "Vault contract", v: "Live on Testnet", tone: "ok", d: "CDHICU2W…T55GI · deployed wasm hash matches the local artifact · 20/20 unit tests." },
+        { k: "Vault contract", v: "Live on Testnet", tone: "ok", d: "CDHICU2W…T55GI · deployed wasm hash matches the local artifact · 21/21 unit tests." },
         { k: "Soroban Testnet RPC", v: "Operational", tone: "ok", d: "Reads and writes go directly to soroban-testnet.stellar.org. No backend or indexer in between." },
         { k: "Web app /app", v: "Live", tone: "ok", d: "Deposit, withdraw and redeem with Freighter on Testnet." },
         { k: "Landing & docs", v: "Live", tone: "ok", d: "Static pages served from the web host." },
@@ -33,7 +33,7 @@ export const pagesCopy = {
       title: "What changed, and when.",
       sub: "Every release, written by hand. Newest first.",
       entries: [
-        { v: "1.0.0", d: "2026-10", tag: "Protocol", items: ["SEP-56 vault deployed to Stellar Testnet (Protocol 29)", "Verified wasm hash, live deposit/withdraw/redeem via Freighter", "20/20 contract tests, including donation-attack and allowance cases"] },
+        { v: "1.0.0", d: "2026-10", tag: "Protocol", items: ["SEP-56 vault deployed to Stellar Testnet (Protocol 29)", "Verified wasm hash, live deposit/withdraw/redeem via Freighter", "21/21 contract tests, including donation-attack and allowance cases"] },
         { v: "0.3.0", d: "2026-10", tag: "Docs", items: ["Added /docs: shares, decimal offset, rounding policy, limitations", "Added /status and /changelog"] },
         { v: "0.2.0", d: "2026-10", tag: "App", items: ["Vault dashboard at /app with wallet header, stats, position summary", "Deposit, withdraw by assets, redeem by shares, Redeem all", "Step-by-step transaction status and human-readable error cases"] },
         { v: "0.1.0", d: "2026-10", tag: "Landing", items: ["Landing page in EN/ID with live stats panel", "How it works, share math, security, roadmap, FAQ"] },
@@ -60,7 +60,7 @@ export const pagesCopy = {
       sub: "Cuplikan yang dirawat manual. Tanpa klaim uptime otomatis, kami hanya menyatakan yang sudah kami verifikasi.",
       updated: "Terakhir diperbarui",
       items: [
-        { k: "Kontrak vault", v: "Aktif di Testnet", tone: "ok", d: "CDHICU2W…T55GI · hash wasm on-chain sama dengan artefak lokal · 20/20 unit test." },
+        { k: "Kontrak vault", v: "Aktif di Testnet", tone: "ok", d: "CDHICU2W…T55GI · hash wasm on-chain sama dengan artefak lokal · 21/21 unit test." },
         { k: "Soroban Testnet RPC", v: "Operasional", tone: "ok", d: "Baca dan tulis langsung ke soroban-testnet.stellar.org. Tanpa backend atau indexer di tengah." },
         { k: "Web app /app", v: "Aktif", tone: "ok", d: "Deposit, withdraw, dan redeem dengan Freighter di Testnet." },
         { k: "Landing & docs", v: "Aktif", tone: "ok", d: "Halaman statis dari web host." },
@@ -74,7 +74,7 @@ export const pagesCopy = {
       title: "Apa yang berubah, dan kapan.",
       sub: "Setiap rilis, ditulis manual. Terbaru di atas.",
       entries: [
-        { v: "1.0.0", d: "2026-10", tag: "Protokol", items: ["Vault SEP-56 di-deploy ke Stellar Testnet (Protocol 29)", "Hash wasm terverifikasi, deposit/withdraw/redeem nyata via Freighter", "20/20 test kontrak, termasuk donation attack dan allowance"] },
+        { v: "1.0.0", d: "2026-10", tag: "Protokol", items: ["Vault SEP-56 di-deploy ke Stellar Testnet (Protocol 29)", "Hash wasm terverifikasi, deposit/withdraw/redeem nyata via Freighter", "21/21 test kontrak, termasuk donation attack dan allowance"] },
         { v: "0.3.0", d: "2026-10", tag: "Dokumentasi", items: ["Menambah /docs: share, decimal offset, kebijakan pembulatan, keterbatasan", "Menambah /status dan /changelog"] },
         { v: "0.2.0", d: "2026-10", tag: "Aplikasi", items: ["Dashboard vault di /app dengan header dompet, statistik, ringkasan posisi", "Deposit, withdraw berdasarkan aset, redeem berdasarkan share, Redeem semua", "Status transaksi bertahap dan pesan error yang mudah dipahami"] },
         { v: "0.1.0", d: "2026-10", tag: "Landing", items: ["Landing page EN/ID dengan panel statistik langsung", "Cara kerja, matematika share, keamanan, roadmap, FAQ"] },

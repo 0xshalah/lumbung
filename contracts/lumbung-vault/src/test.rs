@@ -428,3 +428,61 @@ fn t18_withdraw_event() {
         [expected.to_xdr(&e, &id)]
     );
 }
+
+/// Replikasi persis skenario `donation_attack` dari Aegis Vault Checker (21 Okt 2026).
+///
+/// Angka disalin apa adanya dari laporan resmi: penyerang deposit 1 stroop lalu donasi
+/// 100_000_000 stroops langsung ke kontrak (melewati `deposit`, jadi tidak mencetak
+/// share); lalu korban deposit 5_000_000 stroops dan menerima 99 share.
+///
+/// Yang diuji di sini: apakah "99 dari 5_000_000_000 share" berarti korban kehilangan
+/// deposit-nya, atau cuma jumlah share-nya yang anjlok karena harga share ikut bergeser.
+/// Jawaban: yang kedua. Nilainya hampir utuh, dan ini yang tidak terlihat di verdict.
+#[test]
+fn t21_aegis_donation_scenario_value_loss() {
+    let e = Env::default();
+    let (id, asset, client) = setup(&e);
+    let attacker = Address::generate(&e);
+    let victim = Address::generate(&e);
+    mint_xlm(&e, &asset, &attacker, 200_000_000);
+    mint_xlm(&e, &asset, &victim, 10_000_000);
+
+    // 1. Penyerang deposit 1 stroop.
+    client.deposit(&1, &attacker, &attacker, &attacker);
+
+    // 2. Donasi langsung ke kontrak: tidak mencetak share.
+    TokenClient::new(&e, &asset).transfer(
+        &attacker,
+        &MuxedAddress::from(id.clone()),
+        &100_000_000,
+    );
+
+    // 3. Kalau tidak ada donasi, korban akan menerima 5_000_000_000 share.
+    let expected_shares = 5_000_000_000i128;
+
+    // 4. Korban deposit 5_000_000 stroops.
+    let victim_shares = client.deposit(&5_000_000, &victim, &victim, &victim);
+
+    // 5. Berapa yang benar-benar kembali ke korban, diukur dalam aset.
+    let value = client.convert_to_assets(&victim_shares);
+
+    std::println!(
+        "korban: deposit 5_000_000 stroops -> {victim_shares} share (warta: 5_000_000_000) \
+         = {:.4}% dari harapan | nilai balik: {value} stroops ({:.4} XLM) = {:.2}% dari deposit",
+        victim_shares as f64 / expected_shares as f64 * 100.0,
+        value as f64 / 10_000_000.0,
+        value as f64 / 5_000_000.0 * 100.0,
+    );
+
+    // Jumlah share anjlok hampir nol: 99 dari 5 miliar, jadi < 0,01% dari harapan.
+    assert!(
+        victim_shares * 10_000 < expected_shares,
+        "share count ternyata tidak serapuh: {victim_shares}"
+    );
+
+    // Tapi nilai deposit korban yang kembali hampir utuh: ruginya di bawah 1%.
+    assert!(
+        value * 100 >= 5_000_000 * 99,
+        "rugi nilai korban melebihi 1%: {value} dari 5_000_000 stroops"
+    );
+}

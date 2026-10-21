@@ -46,7 +46,7 @@ Prasyarat: Rust ≥ 1.84, target `wasm32v1-none`, Stellar CLI 28.x.
 
 ```bash
 cd contracts/lumbung-vault
-cargo test                      # 20 test
+cargo test                      # 21 test
 stellar contract build          # → target/wasm32v1-none/release/lumbung_vault.wasm
 ```
 
