@@ -32,10 +32,13 @@ merugikan penyerang. Dibuktikan oleh test `t04_donation_attack_unprofitable`.
 ```
 contracts/lumbung-vault/   Kontrak Rust (OpenZeppelin stellar-tokens 0.7.2)
 deployments/testnet.json   Alamat, hash, dan tx hash deployment
-PRD.md / TRD.md / TASKS.md Dokumen produk, teknis, dan task list
-LANDING.md                 Spesifikasi landing page
+PRD.md / TRD.md            Dokumen produk dan teknis
 web/                       Web app React 19 (landing + dashboard vault)
 ```
+
+> Laporan audit Aegis Vault (JSON + Markdown) tersedia di
+> [`web/public/aegis-report.md`](./web/public/aegis-report.md) dan
+> `web/public/aegis-report.json`.
 
 ## Build & test
 

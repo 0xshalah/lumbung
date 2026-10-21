@@ -43,7 +43,7 @@ Dokumen ini menetapkan bagaimana tiga komponen dibangun dan disatukan:
 
 | ID | Keputusan | Alternatif yang ditolak | Alasan | Konsekuensi |
 |---|---|---|---|---|
-| AD-01 | **Satu repo** `lumbung-vault` dengan `contracts/`, `web/`, `submission/`, `docs/` | Dua repo terpisah | Brief & post X harus menunjuk satu produk; bukti proyek jadi koheren | Perlu merge repo landing (riwayat git landing dipertahankan via subtree) |
+| AD-01 | **Satu repo** `lumbung` dengan `contracts/` dan `web/` (artefak submission disimpan lokal, tidak di-commit) | Dua repo terpisah | Brief & post X harus menunjuk satu produk; bukti proyek jadi koheren | Repo landing sudah di-merge ke repo ini (riwayat git dipertahankan) |
 | AD-02 | **Web tetap React 19 SPA (CRA/craco)**, bukan Next.js 16 | Port ke Next.js + Tailwind 4 | Landing sudah jadi & terbukti build; dApp tidak butuh SSR; 3–4 jam porting lebih baik dialihkan ke kontrak | PRD §8 harus diamendemen; `craco.config.js` dipertahankan sebagai lapisan kompatibilitas |
 | AD-03 | **Tidak ada backend di P0** | Indexer + API sekarang | Retensi RPC 7 hari cukup untuk challenge; D6 PRD | Riwayat panjang & grafik TVL ditunda ke P1 (pasca-submission) |
 | AD-04 | **Baca state langsung dari RPC** via `simulateTransaction` | Cache server / cron | Tanpa server; cukup untuk traffic challenge | Perlu akun source read-only yang funded |
@@ -52,7 +52,7 @@ Dokumen ini menetapkan bagaimana tiga komponen dibangun dan disatukan:
 | AD-07 | **Tanpa `Capped`, tanpa admin, tanpa upgrade** | Ownable/Capped | Permissionless & lolos pemeriksaan "no admin keys" | Tidak bisa memperbaiki kontrak setelah deploy → QA wajib sebelum deploy |
 | AD-08 | **Pakai high-level trait OZ**, tidak menulis ulang logika vault | Implementasi sendiri | Auth, event, pembulatan sudah teruji | Wajib paham `deposit_internal`/`withdraw_internal` tidak boleh dipanggil langsung |
 | AD-09 | **Deploy web di Vercel** dengan SPA rewrite | Netlify / GitHub Pages | Satu platform, gratis, rewrite mudah | Wajib `vercel.json`; tanpa itu `/app` 404 |
-| AD-10 | **Artefak disimpan di `submission/` dan di-commit** | Google Drive saja | Dapat diaudit ulang; address terlihat di repo | Ukuran video besar → pakai Git LFS atau link eksternal + file pointer |
+| AD-10 | **Artefak submission disimpan lokal di `~/lumbung-artifacts/submission/`, tidak di-commit** | Google Drive saja | Repo publik tetap bersih (tanpa video 3,8 MB, screenshot, dan arsip chat), tapi artefak tetap bisa diaudit ulang | Laporan audit tetap dipublikasikan sebagai file statis di `web/public/aegis-report.*` |
 
 ---
 
@@ -167,23 +167,20 @@ User menekan "Deposit"
 ## 5. Struktur repo
 
 ```
-lumbung-vault/
+lumbung/                            # repo publik
 ├── README.md                       # cara build, deploy, alamat kontrak
 ├── .gitignore
-├── docs/
-│   ├── PRD.md
-│   ├── TASKS.md
-│   ├── TRD.md                      # dokumen ini
-│   ├── LANDING.md
-│   └── raw/                        # arsip chat WhatsApp (bukti konteks)
+├── PRD.md
+├── TRD.md                          # dokumen ini
 ├── contracts/
 │   └── lumbung-vault/
 │       ├── Cargo.toml
+│       ├── Cargo.lock
 │       ├── rust-toolchain.toml
 │       ├── src/
 │       │   ├── lib.rs
 │       │   └── test.rs
-│       └── Makefile
+│       └── test_snapshots/         # snapshot stellar CLI (20 test)
 ├── web/
 │   ├── package.json
 │   ├── package-lock.json           # WAJIB di-commit
@@ -191,9 +188,13 @@ lumbung-vault/
 │   ├── tailwind.config.js
 │   ├── postcss.config.js
 │   ├── vercel.json                 # SPA rewrites
+│   ├── .env.production             # identifier publik, bukan secret
 │   ├── public/
 │   │   ├── index.html
-│   │   └── favicon.svg
+│   │   ├── favicon.png
+│   │   ├── logo-mark.png
+│   │   ├── aegis-report.md         # laporan audit publik
+│   │   └── aegis-report.json
 │   └── src/
 │       ├── App.js
 │       ├── index.js
@@ -202,25 +203,35 @@ lumbung-vault/
 │       │   ├── landing/
 │       │   ├── app/
 │       │   └── ui/                 # shadcn
+│       ├── hooks/
 │       └── lib/
 │           ├── config.js
-│           ├── rpc.js              # BARU: koneksi Soroban RPC
-│           ├── vault-read.js       # DIISI: baca state nyata
-│           ├── vault-write.js      # BARU: deposit/withdraw
-│           ├── wallet.js           # BARU: adapter wallets-kit
-│           ├── format.js           # diperbaiki: desimal dinamis
-│           ├── tx-state.js         # BARU: state machine + error map
+│           ├── rpc.js              # koneksi Soroban RPC
+│           ├── vault-read.js       # baca state nyata
+│           ├── vault-write.js      # deposit/withdraw
+│           ├── wallet.js           # adapter wallets-kit
+│           ├── format.js           # desimal dinamis
+│           ├── tx-state.js         # state machine + error map
 │           ├── copy.js
 │           ├── app-copy.js
 │           ├── pages-copy.js
 │           └── i18n.js
-└── submission/
-    ├── README.md                   # checklist + cara reproduksi
-    ├── brief-lumbung.md
-    ├── checker.json
-    ├── checker.md
-    ├── screenshots/
-    └── video.md                    # link rekaman (file besar di luar repo)
+└── deployments/
+    └── testnet.json                # alamat, hash, tx hash deployment
+```
+
+Tidak di-commit (lokal saja, lihat AD-10):
+
+```
+~/lumbung-artifacts/
+├── chat/                           # arsip chat WhatsApp (konteks proyek)
+└── submission/                     # paket submission Aegis Vault
+    ├── BRIEF.md                    # brief vault non-teknis
+    ├── POST-X.md                   # draf post X
+    ├── PESAN-STELLA.md             # draf pesan ke tim Aegis
+    ├── aegis-check.mp4             # rekaman layar pemeriksaan
+    ├── screenshots/                # 5 screenshot
+    └── downloads/                  # laporan resmi JSON + Markdown
 ```
 
 ---
@@ -956,7 +967,7 @@ Env di dashboard Vercel (Production + Preview), lalu **redeploy** (env di-inline
 
 | # | Artefak | Format | Nama file | Isi wajib |
 |---|---|---|---|---|
-| 1 | Screen record | MP4, 1–3 mnt, 1080p | `submission/video.md` (link) | Checker berjalan, hasil muncul, address terlihat |
+| 1 | Screen record | MP4, 1–3 mnt, 1080p | `~/lumbung-artifacts/submission/aegis-check.mp4` | Checker berjalan, hasil muncul, address terlihat |
 | 2 | Screenshot proses | PNG | `screenshots/01-process.png` | Checker sedang berjalan |
 | 3 | Screenshot hasil | PNG | `screenshots/02-result.png` | Jumlah success & error terlihat |
 | 4 | Hasil JSON | `.json` | `checker.json` | **Address vault terlihat** |
@@ -1044,7 +1055,7 @@ Contract: C...
 - [ ] Screen record menampilkan address
 - [ ] JSON & MD menampilkan address
 - [ ] Post X dari akun resmi, publik (tidak dikunci)
-- [ ] Semua file ada di `submission/`
+- [ ] Semua file ada di `~/lumbung-artifacts/submission/`
 - [ ] Link dikirim ke grup sebelum **24 Okt 20.00 WIB**
 
 ---
@@ -1165,7 +1176,7 @@ Hari ini **Rabu 21 Okt, 14.30 WIB**. Sisa ke deadline internal: **±78 jam**.
 | D3-a | 23 Okt 09.00–11.00 | Jalankan checker, rekam, screenshot, unduh JSON/MD | artefak 1–5 |
 | D3-b | 11.00–13.00 | Perbaikan landing L1–L6 + deploy | **GATE D3**: `/app` publik 200 |
 | D3-c | 13.00–16.00 | Brief, akun X, post | artefak 6–7 |
-| D3-d | 16.00–18.00 | Bundel `submission/`, checklist | semua centang |
+| D3-d | 16.00–18.00 | Bundel `~/lumbung-artifacts/submission/`, checklist | semua centang |
 | D4-a | 24 Okt 09.00–12.00 | QA final, freeze kode | **GATE D4**: tidak ada perubahan |
 | D4-b | 12.00–20.00 | Kirim + buffer | terkirim < 20.00 |
 

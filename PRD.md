@@ -244,7 +244,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 #### FR-10 — Bundel submission
 - **Acceptance criteria:**
   - [ ] 4 artefak lengkap: screen record, screenshot proses+hasil, file JSON, file MD — semuanya memperlihatkan address vault.
-  - [ ] Artefak disimpan di satu folder `submission/` dan diunggah/di-share sesuai instruksi grup.
+  - [ ] Artefak disimpan di satu folder lokal `~/lumbung-artifacts/submission/` (tidak di-commit) dan diunggah/di-share sesuai instruksi grup.
   - [ ] Ada checklist final yang ditandatangani (centang) sebelum dikirim.
 
 ### 5.2 Functional Requirements — P1 (hanya jika P0 selesai lebih awal)
@@ -462,11 +462,11 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 | # | Syarat Aegis | Artefak | Di mana | Status |
 |---|---|---|---|---|
 | S1 | Vault testnet, address `C...` 56 karakter | Contract ID | README + UI | ⬜ |
-| S2 | Screen record proses pengecekan | `.mp4` | `submission/` | ⬜ |
-| S3 | Screenshot proses & hasil (success/error) | `.png` | `submission/` | ⬜ |
-| S4 | File JSON hasil | `.json` | `submission/` | ⬜ |
-| S5 | File Markdown hasil | `.md` | `submission/` | ⬜ |
-| S6 | Address vault + brief fungsi/fitur (template) | `.md`/`.pdf` | `submission/` | ⬜ |
+| S2 | Screen record proses pengecekan | `.mp4` | `~/lumbung-artifacts/submission/` | ⬜ |
+| S3 | Screenshot proses & hasil (success/error) | `.png` | `~/lumbung-artifacts/submission/` | ⬜ |
+| S4 | File JSON hasil | `.json` | `~/lumbung-artifacts/submission/` | ⬜ |
+| S5 | File Markdown hasil | `.md` | `~/lumbung-artifacts/submission/` | ⬜ |
+| S6 | Address vault + brief fungsi/fitur (template) | `.md`/`.pdf` | `~/lumbung-artifacts/submission/` | ⬜ |
 | S7 | Post X resmi project | URL | grup challenge | ⬜ |
 | S8 | Akun X resmi project | Profil | — | ⬜ |
 
