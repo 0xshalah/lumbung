@@ -74,6 +74,8 @@ Di Hero, label yang sama dipakai tanpa background atau border. Bukan badge: bent
 
 Pill (radius penuh) **hanya** di tempat bentuknya membawa makna: bar progres di ShareMath. Badge capsule tidak dipakai karena status lebih baik dinyatakan dengan kata.
 
+**Tag metadata** (mis. `SEP-56 · OpenZeppelin`) duduk di baris paling bawah kartu, rata baseline di antara kartu-kartu satu baris. Di kartu yang sempit, ikon dan tag dalam satu baris akan berdesakan dan tag-nya Pecah di tengah.
+
 ## 7. Motion
 
 - Reveal saat scroll: opacity + pergeseran 18px (atas) atau 24px (samping). Section berbentuk baris masuk dari kiri, section berbentuk kolom naik dari bawah, panel Security masuk dari dua sisi. Itu yang memberi jeda tanpa membuat halaman terasa acak.

@@ -16,13 +16,13 @@ export const WhyVault = () => {
           const lead = i === 0;
           return (
             <Reveal key={c.t} delay={i * 0.08} from={lead ? "left" : "up"} className={lead ? "sm:col-span-2" : ""}>
-              <article className="group h-full rounded-[10px] border border-[#1F2126] bg-[#121317] p-7 md:p-8 transition-[border-color,transform] duration-200 hover:border-[#E8B33A]/50 hover:-translate-y-1" data-testid={`why-card-${i + 1}`}>
-                <div className={lead ? "mb-12 flex items-center justify-between" : "mb-12 flex items-center justify-between"}>
+              <article className="group flex h-full flex-col rounded-[10px] border border-[#1F2126] bg-[#121317] p-7 md:p-8 transition-[border-color,transform] duration-200 hover:border-[#E8B33A]/50 hover:-translate-y-1" data-testid={`why-card-${i + 1}`}>
+                <div className="mb-12">
                   <span className="grid h-10 w-10 place-items-center rounded-[8px] border border-[#1F2126] text-[#E8B33A] transition-colors duration-200 group-hover:bg-[#E8B33A] group-hover:text-[#0A0B0D]"><Icon size={18} /></span>
-                  <span className="font-mono text-[12px] text-[#8A9099]">{tags[i]}</span>
                 </div>
                 <h3 className={`font-semibold text-[#E7E9EE] mb-3 ${lead ? "text-[26px] md:text-[30px]" : "text-[20px]"}`}>{c.t}</h3>
                 <p className={`leading-relaxed text-[#A9AEB7] ${lead ? "text-[16px] max-w-[46ch]" : "text-[15px]"}`}>{c.d}</p>
+                <span className="mt-auto pt-7 font-mono text-[12px] text-[#8A9099]">{tags[i]}</span>
               </article>
             </Reveal>
           );
