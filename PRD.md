@@ -4,7 +4,7 @@
 > **Pemilik:** Shalahuddin Al-Ayyubi
 > **Terakhir diperbarui:** 21 Oktober 2026
 > **Target rilis:** 24 Oktober 2026 (submission Aegis Vault Reward Challenge)
-> **Dokumen terkait:** SOW Aegis Vault (Google Docs), [`TASKS.md`](./TASKS.md), [`LANDING.md`](./LANDING.md), [`TRD.md`](./TRD.md)
+> **Dokumen terkait:** SOW Aegis Vault (Google Docs), `TASKS.md` (dokumen internal, tidak dipublikasikan), `LANDING.md` (dokumen internal, tidak dipublikasikan), [`TRD.md`](./TRD.md)
 >
 > **Catatan v0.3:** PRD diselaraskan dengan kondisi implementasi per 21 Okt 2026:
 > landing page **sudah jadi** (repo terpisah, React SPA), API kontrak `stellar-tokens 0.7.2`
@@ -12,7 +12,7 @@
 > terbuka Q1–Q7 **ditutup**. Detail teknis ada di `TRD.md`; PRD tetap dokumen produk.
 >
 > **Catatan v0.2:** landing page ditambahkan sebagai **P0.5/P1** (bukan P0) melalui
-> [`LANDING.md`](./LANDING.md), yang mengamendemen dokumen ini (LP-01..LP-14, LP-NFR-01..LP-NFR-05, G6).
+> `LANDING.md` (dokumen internal, tidak dipublikasikan), yang mengamendemen dokumen ini (LP-01..LP-14, LP-NFR-01..LP-NFR-05, G6).
 
 > **Nama "Lumbung" adalah working title** dan bisa diganti tanpa memengaruhi isi PRD.
 > Alasan pemilihan: lumbung = tempat menyimpan hasil bersama, tempat orang menitipkan
@@ -100,7 +100,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 - **G4** — Submission Aegis lengkap dan dapat diverifikasi (record, screenshot, JSON+MD, brief, link X).
 - **G5** — Repo publik yang bisa dibaca orang lain: README, arsitektur, dan cara menjalankan.
 - **G6** — Landing page publik yang jujur: menjelaskan produk dalam < 5 detik, menampilkan
-  angka vault hidup, dan secara eksplisit menyebutkan keterbatasannya. Lihat [`LANDING.md`](./LANDING.md).
+  angka vault hidup, dan secara eksplisit menyebutkan keterbatasannya. Lihat `LANDING.md` (dokumen internal, tidak dipublikasikan).
 
 ### 3.2 Non-Tujuan (eksplisit TIDAK dikerjakan)
 
@@ -266,7 +266,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 
 ### 5.4 Functional Requirements — Landing Page (P0.5 / P1)
 
-> Didefinisikan penuh di [`LANDING.md`](./LANDING.md). Ringkasan trace:
+> Didefinisikan penuh di `LANDING.md` (dokumen internal, tidak dipublikasikan). Ringkasan trace:
 >
 > - **P0.5 (wajib, ~3 jam):** LP-01..LP-11 — routing `/` vs `/app`, nav + badge testnet,
 >   hero dengan statistik hidup, how it works, what is a share, why a standard vault,
@@ -278,7 +278,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 > (withdraw) terbukti jalan. Ini proteksi terhadap risiko R1.
 >
 > **Status v0.3:** LP-01..LP-14 **sudah terimplementasi**. Karena itu yang tersisa bukan
-> pembangunan, melainkan 6 perbaikan wajib **L1–L6** di [`LANDING.md`](./LANDING.md) §10.1.
+> pembangunan, melainkan 6 perbaikan wajib **L1–L6** di `LANDING.md` (dokumen internal, tidak dipublikasikan) §10.1.
 > Aturan keras tetap berlaku untuk perbaikan tersebut: dikerjakan **setelah** deposit &
 > withdraw jalan (D3), bukan sebelumnya. L1 (data mock ditampilkan sebagai live) dan
 > L3 (SPA rewrite) tidak boleh dipotong.
@@ -301,7 +301,7 @@ alur deposit → withdraw terbukti berjalan on-chain (tx hash dapat diverifikasi
 | NFR-10 | Observabilitas | Error frontend tertangkap error boundary; log server terstruktur (JSON) | Code review |
 | NFR-11 | Privasi | Tidak menyimpan PII; hanya data publik on-chain | Code review |
 | NFR-12 | Biaya | Operasional = Rp0 (hosting free tier, testnet) | Cek tagihan |
-| LP-NFR-01..05 | Landing | Performa (LCP < 2.0 s, CLS < 0.1), a11y ≥ 95, kualitas copy, responsif 360–1920 px, degradasi saat RPC mati | Lighthouse + checklist [`LANDING.md`](./LANDING.md) §11 |
+| LP-NFR-01..05 | Landing | Performa (LCP < 2.0 s, CLS < 0.1), a11y ≥ 95, kualitas copy, responsif 360–1920 px, degradasi saat RPC mati | Lighthouse + checklist `LANDING.md` (dokumen internal, tidak dipublikasikan) §11 |
 
 ---
 
@@ -528,5 +528,5 @@ PRD ini disusun dengan menggabungkan praktik berikut:
 | Versi | Tanggal | Perubahan | Penulis |
 |---|---|---|---|
 | 0.1 | 20 Okt 2026 | Draft awal: problem, goals/non-goals, persona, P0–P2, NFR, arsitektur, risiko, timeline, traceability submission | Shalahuddin |
-| 0.2 | 20 Okt 2026 | Amendemen landing page: G6, §5.4 LP-01..14, LP-NFR, D3 timeline. Detail di [`LANDING.md`](./LANDING.md) | Shalahuddin |
+| 0.2 | 20 Okt 2026 | Amendemen landing page: G6, §5.4 LP-01..14, LP-NFR, D3 timeline. Detail di `LANDING.md` (dokumen internal, tidak dipublikasikan) | Shalahuddin |
 | 0.3 | 21 Okt 2026 | Penyelarasan implementasi: web jadi React SPA (A1), D2 dikoreksi ke pola `contracttrait` OZ 0.7.2 (A2), D6 diperjelas tanpa backend service (A3), timeline di-rebaseline (A4), acceptance donation-attack ditambah ke FR-03 (A5), Q1–Q7 ditutup (A6), D7–D8 ditambah. Detail teknis di [`TRD.md`](./TRD.md) | Shalahuddin |

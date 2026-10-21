@@ -8,7 +8,7 @@
 | Tanggal | 21 Oktober 2026, 14.30 WIB |
 | Status | Disetujui untuk dieksekusi |
 | Pemilik | Shalahuddin Al-Ayyubi |
-| Dokumen terkait | [`PRD.md`](./PRD.md) v0.2 · [`TASKS.md`](./TASKS.md) v0.2 · [`LANDING.md`](./LANDING.md) v0.2 |
+| Dokumen terkait | [`PRD.md`](./PRD.md) v0.2 · `TASKS.md` (dokumen internal, tidak dipublikasikan) v0.2 · `LANDING.md` (dokumen internal, tidak dipublikasikan) v0.2 |
 | Target | Submission Aegis Vault Reward Challenge, **24 Okt 2026 23.59 WIB** |
 | Deadline internal | **24 Okt 2026 20.00 WIB** |
 
