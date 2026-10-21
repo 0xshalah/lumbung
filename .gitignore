@@ -1,0 +1,17 @@
+# Rust / Cargo build artifacts
+target/
+
+# Node
+node_modules/
+web/build/
+web/.vercel/
+
+# Environment (public config yang di-commit: web/.env.production, web/.env.example)
+.env.local
+.env.*.local
+
+# OS & editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
