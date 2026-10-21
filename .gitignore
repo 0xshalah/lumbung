@@ -10,6 +10,7 @@ dist/
 
 # Contract artifacts
 *.wasm
+test_snapshots/
 
 # Large media
 submission/*.mp4

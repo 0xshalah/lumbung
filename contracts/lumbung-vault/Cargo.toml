@@ -1,0 +1,28 @@
+[package]
+name = "lumbung-vault"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+doctest = false
+
+[dependencies]
+# 26.1.1 wajib: 26.1.0 mengunci soroban-env-host 26.1.3 yang bergantung pada
+# ed25519-dalek 3.0.0 dengan API rand_core yang tidak kompatibel (gagal compile).
+soroban-sdk = "=26.1.1"
+stellar-tokens = "=0.7.2"
+
+[dev-dependencies]
+soroban-sdk = { version = "=26.1.1", features = ["testutils"] }
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
