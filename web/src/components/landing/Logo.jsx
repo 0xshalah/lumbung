@@ -5,7 +5,7 @@ export const LogoMark = ({ size = 28 }) => (
     height={size}
     alt=""
     aria-hidden="true"
-    className="rounded-[7px] ring-1 ring-[#1F2126]"
+    className="block"
     style={{ objectFit: "cover" }}
   />
 );

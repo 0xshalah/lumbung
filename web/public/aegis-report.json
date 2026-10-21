@@ -1,0 +1,132 @@
+{
+  "tool": "Aegis Vault",
+  "vault": "CDHICU2WIUHKLYPQCXD7ZD2VABMEGBR2G3TYEVC4Q5PMTCR6JHST55GI",
+  "network": "testnet",
+  "spec": "SEP-0056 v0.1.2 (Draft)",
+  "cli_version": "0.5.0",
+  "cli_commit": "19d4180",
+  "started_at": "2026-10-21T10:16:18.798Z",
+  "completed_at": "2026-10-21T10:17:45.293Z",
+  "duration_seconds": 86,
+  "summary": {
+    "total": 11,
+    "pass": 10,
+    "fail": 1,
+    "warn": 0,
+    "inconclusive": 0,
+    "not_applicable": 0,
+    "groups": {
+      "conformance": {
+        "passed": 7,
+        "total": 7
+      },
+      "security": {
+        "passed": 3,
+        "total": 4
+      }
+    },
+    "title": "Remediation needed"
+  },
+  "checks": [
+    {
+      "number": 1,
+      "id": "total_assets",
+      "group": "conformance",
+      "name": "Total assets accounting",
+      "status": "pass",
+      "detail": "total_assets = 122008000",
+      "settled_at": "2026-10-21T10:16:44.420Z"
+    },
+    {
+      "number": 2,
+      "id": "deposit",
+      "group": "conformance",
+      "name": "Deposit conformance",
+      "status": "pass",
+      "detail": "deposited 5000000 stroops, minted 5000000000 shares matching preview_deposit(), total_assets 122008000 -> 127008000; max_deposit=170141183460469231731687303715884105727, total_supply 122008000000 -> 127008000000",
+      "settled_at": "2026-10-21T10:16:59.653Z"
+    },
+    {
+      "number": 3,
+      "id": "mint",
+      "group": "conformance",
+      "name": "Mint conformance",
+      "status": "pass",
+      "detail": "minted 3000000 shares, pulled 3000 assets matching preview_mint(), total_assets 127008000 -> 127011000; max_mint=170141183460469231731687303715884105727, total_supply 127008000000 -> 127011000000",
+      "settled_at": "2026-10-21T10:17:09.781Z"
+    },
+    {
+      "number": 4,
+      "id": "withdraw",
+      "group": "conformance",
+      "name": "Withdraw conformance",
+      "status": "pass",
+      "detail": "withdrew 2000000 stroops, burned 2000000000 shares matching preview_withdraw(), total_assets 127011000 -> 125011000; max_withdraw=11007000, total_supply 127011000000 -> 125011000000",
+      "settled_at": "2026-10-21T10:17:30.135Z"
+    },
+    {
+      "number": 5,
+      "id": "redeem",
+      "group": "conformance",
+      "name": "Redeem conformance",
+      "status": "pass",
+      "detail": "redeemed 1000000 shares, received 1000 assets matching preview_redeem(), total_assets 125011000 -> 125010000; max_redeem=9007000000, total_supply 125011000000 -> 125010000000",
+      "settled_at": "2026-10-21T10:17:40.247Z"
+    },
+    {
+      "number": 6,
+      "id": "convert_to_shares",
+      "group": "conformance",
+      "name": "Convert to shares accuracy",
+      "status": "pass",
+      "detail": "convert_to_shares(4000000) = 4000000000, round-trip convert_to_assets(4000000000) = 4000000 (<= 4000000, as required of floor/floor round-tripping), total_assets unchanged at 125010000",
+      "settled_at": "2026-10-21T10:17:45.293Z"
+    },
+    {
+      "number": 7,
+      "id": "convert_to_assets",
+      "group": "conformance",
+      "name": "Convert to assets accuracy",
+      "status": "pass",
+      "detail": "convert_to_assets(4000000) = 4000, round-trip convert_to_shares(4000) = 4000000 (<= 4000000, as required of floor/floor round-tripping), total_assets unchanged at 125010000",
+      "settled_at": "2026-10-21T10:17:45.293Z"
+    },
+    {
+      "number": 8,
+      "id": "donation_attack",
+      "group": "security",
+      "name": "Donation / inflation attack resistance",
+      "status": "fail",
+      "detail": "VULNERABLE to donation/inflation attack — fresh vault CCF5TSELJEK3MRUCJN7EDNBQLSUDV5CP3LMM3WESTX4764ONUSJ65IWN (decimals_offset=3): attacker deposited 1 stroop(s) then donated 100000000 stroops directly (bypassing deposit()); victim then deposited 5000000 stroops and received 99 shares (0% of the 5000000000 expected from an undisturbed deposit at this vault's decimals_offset); attacker P&L: net loss of 49976180 stroops (spent 100000001, redeemed 50023821)",
+      "settled_at": "2026-10-21T10:17:35.186Z"
+    },
+    {
+      "number": 9,
+      "id": "overflow_protection",
+      "group": "security",
+      "name": "Overflow protection",
+      "status": "pass",
+      "detail": "deposit(assets=i128::MAX) on fresh vault CCZC5EF2AHL4SON3BHADATNK4ERBNHFDIXNZ6VQUG6J5FOGDDFWGM7ZN failed cleanly (rejected by the network, with no error text), and total_assets remained 0 — no silent-wrong-result observed. this vault's decimals_offset=3 means preview_deposit() computes assets * 10^3, which overflows i128 for assets=i128::MAX regardless of the underlying asset — so this IS the vault's own checked-arithmetic overflow protection (stellar-tokens' mul_div_with_rounding, which panics rather than truncating), confirmed before any asset transfer was even attempted.",
+      "settled_at": "2026-10-21T10:17:04.695Z"
+    },
+    {
+      "number": 10,
+      "id": "rounding_direction",
+      "group": "security",
+      "name": "Rounding direction safety",
+      "status": "pass",
+      "detail": "fresh vault CAS3WTKB6Z3AF4ZA6BGVGWKSYXHE7CZPR3C36MQSDPWIVO4TTZVG5QXZ at fractional ratio (seed 1000 + donation 500): Test A — deposit(100) minted 66688 shares matching preview_deposit() (floor, favors vault); Test B — mint(100 shares) pulled 1 assets matching preview_mint() (ceil) and strictly greater than the idealized convert_to_assets() (0) — rounding direction confirmed to always favor the vault over the user",
+      "settled_at": "2026-10-21T10:17:35.186Z"
+    },
+    {
+      "number": 11,
+      "id": "access_control_probing",
+      "group": "security",
+      "name": "Access control probing",
+      "status": "pass",
+      "detail": "fresh vault CDM5YY6V6ECF6N77YDKPNIAZU5VD2HN3MEINWWQJBG64ONTMVZQVGV6J (decimals_offset=3): unauthorized withdraw (no approval) correctly rejected; after owner approved operator for 1000000000 shares, operator withdrew 500000000 shares (allowance 1000000000 -> 500000000, decremented exactly); operator's over-allowance withdraw attempt of 1500000 assets (requiring more shares than the remaining 500000000-share allowance) correctly rejected with allowance left untouched at 500000000",
+      "settled_at": "2026-10-21T10:17:35.186Z"
+    }
+  ],
+  "timing_note": "Timestamps are recorded by the browser while polling the backend every 5 s, so each is accurate to about 5 s."
+}

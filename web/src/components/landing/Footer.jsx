@@ -11,6 +11,7 @@ export const Footer = () => {
     { l: t.nav.docs, h: "/docs", id: "footer-docs" },
     { l: t.footer.changelog, h: "/changelog", id: "footer-changelog" },
     { l: t.footer.status, h: "/status", id: "footer-status" },
+    { l: "Aegis report", h: "/aegis-report.md", id: "footer-aegis" },
     { l: t.footer.contact, h: LINKS.issues, id: "footer-issues" },
   ];
   return (
