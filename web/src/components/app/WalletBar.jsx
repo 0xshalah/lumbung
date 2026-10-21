@@ -28,8 +28,8 @@ const Address = ({ address, c, onDisconnect }) => {
 
 export const WalletBar = ({ c, wallet, connect, disconnect }) => (
   <header className="sticky top-0 z-40 bg-[#0A0B0D]/90 backdrop-blur-md border-b border-[#1F2126]" data-testid="app-header">
-    <div className="max-w-[1100px] mx-auto px-5 md:px-6 h-16 flex items-center justify-between gap-3">
-      <div className="flex items-center gap-3">
+    <div className="max-w-[1100px] mx-auto px-5 md:px-6 h-16 flex items-center justify-between gap-2 sm:gap-3">
+      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
         <Logo />
         <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#F87171]/40 bg-[#F87171]/10 px-2.5 py-0.5 font-mono text-[12px] text-[#F87171]" data-testid="app-testnet-badge">
           <span className="h-1.5 w-1.5 rounded-full bg-[#F87171] animate-pulse" />TESTNET
@@ -43,8 +43,8 @@ export const WalletBar = ({ c, wallet, connect, disconnect }) => (
         {wallet.status === "connected" ? (
           <Address address={wallet.address} c={c} onDisconnect={disconnect} />
         ) : (
-          <button onClick={connect} disabled={wallet.status === "connecting"} data-testid="wallet-connect-btn" className="inline-flex items-center gap-2 rounded-[8px] bg-[#E8B33A] px-3 md:px-4 py-2 text-[14px] font-semibold text-[#0A0B0D] hover:bg-[#f2c55a] disabled:opacity-60 transition-colors duration-150">
-            <Wallet size={16} />{wallet.status === "connecting" ? c.connecting : c.connect}
+          <button onClick={connect} disabled={wallet.status === "connecting"} data-testid="wallet-connect-btn" className="inline-flex shrink-0 items-center gap-2 rounded-[8px] bg-[#E8B33A] px-3 md:px-4 min-h-[44px] text-[14px] font-semibold text-[#0A0B0D] hover:bg-[#f2c55a] disabled:opacity-60 transition-colors duration-150">
+            <Wallet size={16} />{wallet.status === "connecting" ? c.connecting : <><span className="hidden sm:inline">{c.connect}</span><span className="sm:hidden">{c.connectShort}</span></>}
           </button>
         )}
       </div>

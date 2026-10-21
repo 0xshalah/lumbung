@@ -74,11 +74,11 @@ export default function VaultApp() {
           />
         )}
         <div className="grid lg:grid-cols-[1.35fr_1fr] gap-6 items-start">
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             <VaultStats c={c} vault={vault} connected={connected} refresh={refresh} />
             <PositionCard c={c} vault={vault} connected={connected} onGoDeposit={goDeposit} />
           </div>
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             <ActionPanel c={c} tab={tab} setTab={setTab} depositValue={depositValue} setDepositValue={setDepositValue} vault={vault} blocked={blocked} connected={connected} onSubmit={run} />
           </div>
         </div>

@@ -15,7 +15,7 @@ import { useLenis } from "../hooks/useLenis";
 export default function Landing() {
   useLenis();
   return (
-    <div className="grain min-h-screen bg-[#0A0B0D] text-[#E7E9EE]" data-testid="landing-page">
+    <div className="grain min-h-screen overflow-x-clip bg-[#0A0B0D] text-[#E7E9EE]" data-testid="landing-page">
       <Nav />
       <main>
         <Hero />

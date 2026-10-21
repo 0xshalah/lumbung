@@ -8,9 +8,9 @@ const tones = {
 export const Notice = ({ tone = "warn", title, desc, action, testid }) => {
   const Icon = tone === "danger" ? XCircle : AlertTriangle;
   return (
-    <div role="alert" data-testid={testid} className={`flex items-start gap-3 rounded-[10px] border px-4 py-3 ${tones[tone]}`}>
+    <div role="alert" data-testid={testid} className={`flex flex-wrap items-start gap-x-3 gap-y-3 rounded-[10px] border px-4 py-3 ${tones[tone]}`}>
       <Icon size={18} className="mt-0.5 shrink-0" />
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-[220px]">
         <p className="text-[14px] font-semibold">{title}</p>
         <p className="text-[13px] text-[#C9CDD4] mt-0.5 max-w-[68ch]">{desc}</p>
       </div>

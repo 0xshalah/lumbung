@@ -103,3 +103,4 @@ Pill (radius penuh) **hanya** di tempat bentuknya membawa makna: bar progres di 
 3. Setiap nilai yang ditampilkan harus bisa ditelusuri ke kontrak, spec, atau test. Kalau belum ada sumbernya, tulis sebagai placeholder yang jujur, bukan angka.
 4. Batas produk yang belum tercapai ditulis di halaman yang sama dengan kemampuannya (lihat section "Security & known limitations").
 5. Copy yang ditulis agent tidak boleh memakai em dash. Pakai koma, titik, atau titik dua.
+6. Item di dalam grid atau flex wajib `min-w-0`, kalau tidak `min-width: auto` bikin kolom tidak mau menyusut di bawah lebar isinya dan halaman jadi kegeser ke kanan di mobile. Dekorasi yang keluar dari viewport dipotong dengan `overflow-x-clip`, bukan `overflow-hidden`, karena `hidden` merusak `position: sticky` untuk navbar.
